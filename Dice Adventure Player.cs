@@ -8,10 +8,30 @@ namespace DiceAdventure
 {
     public class Player
     {
-        public int Location;
-        public int HP;
-        public int Dice_num;
-
+        private int location;
+        private int hp;
+        public int Location
+        {
+            get
+            {
+                return this.location;
+            }
+            set
+            {
+                location = value;
+            }
+        }
+        public int HP
+        {
+            get
+            {
+                return this.hp;
+            }
+            set
+            {
+                hp = value;
+            }
+        }
     }
     public class MovePlayer : Player
     {

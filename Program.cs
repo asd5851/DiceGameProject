@@ -79,22 +79,21 @@ namespace DiceAdventure
             MovePlayer moveplayer = new MovePlayer();
             Dice_Roll d_roll = new Dice_Roll();
             View view = new View();
-            Rabbit rabbit = new Rabbit();
-            Wolf wolf = new Wolf();
+            StartView startview = new StartView();
+            MonsterView monsterview = new MonsterView();
             SlideGame slidegame = new SlideGame();
             SnakeGAME snakegame = new SnakeGAME();
             
             int compare_monster=0;
             int compare_move = 0;
             int monster_temp = 0;
-            player.Location = m_width / 2 - m_width / 4; // 55 - 47 = 8
-            //snakegame.SnakeBoard(m_width,m_height);
+            player.Location = m_width / 2 - m_width / 4; // 28 ~ 83
+            //Console.WriteLine("{0} {1}", m_width,m_height);
+            Tetris tetris = new Tetris();
+            //tetris.TetrisMain();
             Eratos(); // 에라토스테네스의 체를 이용해서 소수선별
-            view.DiceView(m_width, m_height);
-            //view.BlingStartView(); // 시작화면 출력
-            ////moveplayer.MoveForwardEvent(player);
-            ////moveplayer.MoveBackwardEvent(player);
-            //slidegame.Slidegame();
+            snakegame.SnakeMain();
+            //startview.BlingStartView();
             //while (true)
             //{
             //    view.MessageDice(m_width, m_height); // 주사위를 굴려달라는 메시지 출력
@@ -104,7 +103,7 @@ namespace DiceAdventure
             //    //Console.ReadLine();
             //    Console.Clear();
             //    //moveplayer.MoveForwardEvent(player);
-            //    if (player.Location < 40)
+            //    if (player.Location < m_width/2)
             //    {
             //        monster_temp = random.Next(1, 3 + 1); // 1 ~ 3까지 랜덤 인수 받아서
             //        view.MonsterMessage(m_width, m_height, monster_temp); // 어떤 몬스터를 만나는지 출력
