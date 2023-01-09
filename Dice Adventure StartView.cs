@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiceAdventure
 {
+    // 시작화면 (스타트 화면)
     public class StartView
     {
         private void StartPrint()

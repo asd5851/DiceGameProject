@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiceAdventure
 {
-    internal class Dice_Roll
+    public class Dice_Roll
     {
         private int dice_number;
         // 주사위를 굴린다.

@@ -10,91 +10,6 @@ using System.Threading.Tasks;
  */
 namespace DiceAdventure
 {
-
-    public class FrameView
-    {
-        public void Frame(int Width, int Height)
-        {
-            for (int i = 1; i <= (Width + 2); i++)
-            {
-                Console.SetCursorPosition(i, 1);
-                Console.Write("￣");
-            }
-            for (int i = 1; i <= (Width + 2); i++)
-            {
-                Console.SetCursorPosition(i, (Height + 1));
-                Console.Write("￣");
-            }
-            for (int i = 1; i <= (Height + 1); i++)
-            {
-                Console.SetCursorPosition(1, i);
-                Console.Write("│");
-            }
-            for (int i = 1; i <= (Height + 1); i++)
-            {
-                Console.SetCursorPosition((Width + 2), i);
-                Console.Write("│");
-            }
-
-            for (int i = Height + 1; i < Height + 1 + Height / 2; i++)
-            {
-                Console.SetCursorPosition(1, i);
-                Console.Write("│");
-            }
-            for (int i = Height + 1; i < Height + 1 + Height / 2; i++)
-            {
-                Console.SetCursorPosition(Width + 2, i);
-                Console.Write("│");
-            }
-            for (int i = 1; i <= (Width + 2); i++)
-            {
-                Console.SetCursorPosition(i, Height + 1 + Height / 2);
-                Console.Write("￣");
-            }
-            Console.WriteLine();
-            Console.WriteLine();
-
-        }
-        protected void DiceFrame(int Width, int Height)
-        {
-            Console.Clear();
-            for (int i = Width / 2 - Height / 2; i <= Width / 2 + Height / 2; i++)
-            {
-                Console.SetCursorPosition(i, 2);
-                Console.Write("□");
-            }
-            for (int i = Width / 2 - Height / 2; i <= Width / 2 + Height / 2; i++)
-            {
-                Console.SetCursorPosition(i, Height - 2);
-                Console.Write("□");
-            }
-            for (int i = Height / 2 - Height / 4; i <= Height / 2 + Height / 4 + 1; i++)
-            {
-                Console.SetCursorPosition(Width / 2 - Height / 2, i);
-                Console.Write("□");
-            }
-            for (int i = Height / 2 - Height / 4; i <= Height / 2 + Height / 4 + 1; i++)
-            {
-                Console.SetCursorPosition(Width / 2 + Height / 2, i);
-                Console.Write("□");
-            }
-        }
-        protected void DiceView(int Width, int Height)
-        {
-            DiceFrame(Width, Height);
-            Frame(Width, Height);
-        }
-        public void WaitView(int Width, int Height)
-        {
-            Frame(Width, Height);
-        }
-
-        public void DiceFrame2(int Width, int Height)
-        {
-            Console.Clear();
-
-        }
-    }
     public class View : FrameView
     {
         Rabbit rabbit = new Rabbit();
@@ -104,67 +19,129 @@ namespace DiceAdventure
         Golem golem = new Golem();
         Dragon dragon = new Dragon();
 
-
-        // 주사위를 굴려주세요 라는 메시지를 출력한다.
+        public void LocationView(Player player, int Width, int Height)
+        {
+            Console.SetCursorPosition(5, 2 * Height - 1);
+            Console.WriteLine("{0} 위치 : {1}", player.Name, player.Location);
+        }
+        public void HPview(Player player, int Width, int Height)
+        {
+            Console.SetCursorPosition(5, 2 * Height - 2);
+            Console.WriteLine("{0}의 체력 : {1}", player.Name, player.HP);
+        }
 
         // 지도상에서 플레이어의 위치를 보여준다.
-        public void PlayerView(int Width, int Height, int location, int playerx)
+        public void PlayerView(Player player, int Width, int Height, int location, int playerx)
         {
+
             for (int i = 0; i <= location * 2; i++)
             {
-                Console.SetCursorPosition(playerx + i, Height + Height / 3);
+                if (player.Name.Equals("컴퓨터"))
+                {
+                    Console.SetCursorPosition(playerx + i, Height + Height / 3 - 1);
+                }
+                else
+                {
+
+                    Console.SetCursorPosition(playerx + i, Height + Height / 3);
+                }
                 if (i % 2 == 0)
                     Console.Write("☆");
                 else
                     Console.Write("★");
                 Frame(Width, Height);
+                Console.SetCursorPosition(5, 2 * Height - 1);
+                Console.WriteLine("{0}의 위치 : {1}", player.Name, (playerx + i) / 2);
                 Thread.Sleep(500);
             }
             Thread.Sleep(500);
         }
 
-        public void PlayerBackView(int Width, int Height, int location, int playerx)
+        public void PlayerBackView(Player player, int Width, int Height, int location, int playerx)
         {
             for (int i = 0; i <= location * 2; i++)
             {
-                Console.SetCursorPosition(playerx - i, Height + Height / 3);
+                if (player.Name.Equals("컴퓨터"))
+                {
+                    Console.SetCursorPosition(playerx + i, Height + Height / 3 - 1);
+                }
+                else
+                {
+
+                    Console.SetCursorPosition(playerx + i, Height + Height / 3);
+                }
                 if (i % 2 == 0)
                     Console.Write("☆");
                 else
                     Console.Write("★");
+
+                Console.SetCursorPosition(5, 2 * Height - 1);
+                Console.WriteLine("{0}의 위치 : {1}", player.Name, (playerx - i) / 2);
                 Frame(Width, Height);
                 Thread.Sleep(500);
             }
-
+            Thread.Sleep(500);
         }
-
-        // 지도를 보여준다.
-        public void ShowMap(int Width, int Height, int location, int playerx, bool front)
+        public void ShowOnlyMap(Player player, int Width, int Height)
         {
-            if (front)
+            for (int i = 3; i <= Width - 2; i++)
             {
-                for (int i = Width / 2 - Width / 4; i <= Width / 2 + Width / 4; i++)
-                {
-                    Console.SetCursorPosition(i, Height + Height / 3 + 1);
-                    Console.Write("□");
-                }
-                Console.WriteLine();
-                PlayerView(Width, Height, location, playerx);
+                Console.SetCursorPosition(i, Height + Height / 3 + 1);
+                Console.Write("□");
+            }
+            if (player.Name.Equals("컴퓨터"))
+            {
+                Console.SetCursorPosition(player.Location, Height + Height / 3 - 1);
+                Console.Write("★");
             }
             else
             {
-                for (int i = Width / 2 - Width / 4; i <= Width / 2 + Width / 4; i++)
+                Console.SetCursorPosition(player.Location, Height + Height / 3);
+                Console.Write("★");
+            }
+        }
+        public void ShowOnlyPlayer(Player player, int Width, int Height)
+        {
+            if (player.Name.Equals("컴퓨터"))
+            {
+             Console.SetCursorPosition(player.Location, Height + Height / 3-1);
+             Console.Write("★");
+             Console.ReadLine();
+            }
+            else
+            {
+                Console.SetCursorPosition(player.Location, Height + Height / 3);
+                Console.Write("★");
+                Console.ReadLine();
+            }
+        } 
+        // 지도를 보여준다.
+        public void ShowMap(Player player, int Width, int Height, int location, int playerx, bool front)
+        {
+            if (front)
+            {
+                for (int i = 3; i <= Width - 2; i++)
                 {
                     Console.SetCursorPosition(i, Height + Height / 3 + 1);
                     Console.Write("□");
                 }
                 Console.WriteLine();
-                PlayerBackView(Width, Height, location, playerx);
+                PlayerView(player, Width, Height, location, playerx);
+            }
+            else
+            {
+                for (int i = 3; i <= Width - 2; i++)
+                {
+                    Console.SetCursorPosition(i, Height + Height / 3 + 1);
+                    Console.Write("□");
+                }
+                Console.WriteLine();
+                PlayerBackView(player, Width, Height, location, playerx);
             }
 
 
         }
-        public void MessageDice(int Width, int Height)
+        public void MessageDice(Player player, int Width, int Height)
         {
             Console.Clear();
             Console.SetCursorPosition(Width / 2 - Width / 8, Height / 3 + 1);
@@ -172,6 +149,8 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2 - Width / 8, Height / 3 + 4);
             Console.WriteLine("      Press Any Key");
             Frame(Width, Height);
+            
+            ShowOnlyMap(player, Width, Height);
             Console.ReadLine();
 
 
@@ -203,7 +182,7 @@ namespace DiceAdventure
 
 
         // 무슨 주사위가 나왔느냐에 따라서 주사위의 View를 보여준다.
-        public void RollDiceOne(int Width, int Height, int location, bool move, int playerx)
+        public void RollDiceOne(Player player, int Width, int Height, int location, bool move, int playerx)
         {
             Console.Clear();
             DiceFrame(Width, Height);
@@ -212,13 +191,13 @@ namespace DiceAdventure
             // 움직일때만 맵을 출력한다.
             if (move)
             {
-                ShowMap(Width, Height, location, playerx, true);
+                ShowMap(player, Width, Height, location, playerx, true);
             }
             Frame(Width, Height);
             Thread.Sleep(500);
 
         }
-        public void RollDiceTwo(int Width, int Height, int location, bool move, int playerx)
+        public void RollDiceTwo(Player player, int Width, int Height, int location, bool move, int playerx)
         {
             Console.Clear();
             DiceFrame(Width, Height);
@@ -228,14 +207,14 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2 + 2, Height / 2);
             Console.Write("■");
             if (move)
-                ShowMap(Width, Height, location, playerx, true);
+                ShowMap(player, Width, Height, location, playerx, true);
 
             Frame(Width, Height);
             Console.ReadLine();
 
 
         }
-        public void RollDiceThree(int Width, int Height, int location, bool move, int playerx)
+        public void RollDiceThree(Player player, int Width, int Height, int location, bool move, int playerx)
         {
             Console.Clear();
             DiceFrame(Width, Height);
@@ -248,12 +227,12 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2, Height / 2 - 1);
             Console.Write("■");
             if (move)
-                ShowMap(Width, Height, location, playerx, true);
+                ShowMap(player, Width, Height, location, playerx, true);
             Frame(Width, Height);
             Console.ReadLine();
 
         }
-        public void RollDiceFour(int Width, int Height, int location, bool move, int playerx)
+        public void RollDiceFour(Player player, int Width, int Height, int location, bool move, int playerx)
         {
             Console.Clear();
             DiceFrame(Width, Height);
@@ -266,13 +245,13 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2 + 2, Height / 2 - 1);
             Console.Write("■");
             if (move)
-                ShowMap(Width, Height, location, playerx, true);
+                ShowMap(player, Width, Height, location, playerx, true);
 
             Frame(Width, Height);
             Console.ReadLine();
 
         }
-        public void RollDiceFive(int Width, int Height, int location, bool move, int playerx)
+        public void RollDiceFive(Player player, int Width, int Height, int location, bool move, int playerx)
         {
             Console.Clear();
             DiceFrame(Width, Height);
@@ -287,12 +266,12 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2, Height / 2);
             Console.Write("■");
             if (move)
-                ShowMap(Width, Height, location, playerx, true);
+                ShowMap(player, Width, Height, location, playerx, true);
             Frame(Width, Height);
             Console.ReadLine();
 
         }
-        public void RollDiceSix(int Width, int Height, int location, bool move, int playerx)
+        public void RollDiceSix(Player player, int Width, int Height, int location, bool move, int playerx)
         {
             Console.Clear();
             DiceFrame(Width, Height);
@@ -309,7 +288,7 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2 + 2, Height / 2);
             Console.Write("■");
             if (move)
-                ShowMap(Width, Height, location, playerx, true);
+                ShowMap(player, Width, Height, location, playerx, true);
 
             Frame(Width, Height);
             Console.ReadLine();

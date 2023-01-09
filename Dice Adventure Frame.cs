@@ -1,0 +1,117 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DiceAdventure
+{
+    public class FrameView
+    {
+        
+        // 게임의 틀
+        public void Frame(int Width, int Height)
+        {
+            int main_width = Width + 2;
+            int main_height = Height + 1;
+            for (int i = 1; i < main_width; i++)
+            {
+                Console.SetCursorPosition(i, 1);
+                Console.Write("￣");
+            }
+            for (int i = 1; i < main_width; i++)
+            {
+                Console.SetCursorPosition(i, main_height);
+                Console.Write("￣");
+            }
+            for (int i = 1; i <= main_height; i++)
+            {
+                Console.SetCursorPosition(1, i);
+                Console.Write("│");
+            }
+            for (int i = 1; i <= main_height; i++)
+            {
+                Console.SetCursorPosition(main_width, i);
+                Console.Write("│");
+            }
+
+            for (int i = main_height; i < main_height + Height / 2; i++)
+            {
+                Console.SetCursorPosition(1, i);
+                Console.Write("│");
+            }
+            for (int i = main_height; i < main_height + Height / 2; i++)
+            {
+                Console.SetCursorPosition(main_width, i);
+                Console.Write("│");
+            }
+            for (int i = 1; i < main_width; i++)
+            {
+                Console.SetCursorPosition(i, main_height + Height / 2);
+                Console.Write("￣");
+            }
+            for (int i = 1; i < main_height + Height; i++)
+            {
+                Console.SetCursorPosition(1, i);
+                Console.Write("│");
+            }
+            for (int i = main_height + Height/2; i < main_height + Height; i++)
+            {
+                Console.SetCursorPosition(main_width/4, i);
+                Console.Write("│");
+            }
+            for(int i=1;i<main_width/4; i++)
+            {
+                Console.SetCursorPosition(i, main_height + Height);
+                Console.Write("￣");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+        }
+
+        // 주사위의 틀
+        protected void DiceFrame(int Width, int Height)
+        {
+            Console.Clear();
+            for (int i = Width / 2 - Height / 2; i <= Width / 2 + Height / 2; i++)
+            {
+                Console.SetCursorPosition(i, 2);
+                Console.Write("□");
+            }
+            for (int i = Width / 2 - Height / 2; i <= Width / 2 + Height / 2; i++)
+            {
+                Console.SetCursorPosition(i, Height - 2);
+                Console.Write("□");
+            }
+            for (int i = Height / 2 - Height / 4; i <= Height / 2 + Height / 4 + 1; i++)
+            {
+                Console.SetCursorPosition(Width / 2 - Height / 2, i);
+                Console.Write("□");
+            }
+            for (int i = Height / 2 - Height / 4; i <= Height / 2 + Height / 4 + 1; i++)
+            {
+                Console.SetCursorPosition(Width / 2 + Height / 2, i);
+                Console.Write("□");
+            }
+        }
+
+        // 주사위의 틀 + 게임의 틀
+        protected void DiceView(int Width, int Height)
+        {
+            DiceFrame(Width, Height);
+            Frame(Width, Height);
+        }
+        
+        
+        public void WaitView(int Width, int Height)
+        {
+            Frame(Width, Height);
+        }
+
+        public void DiceFrame2(int Width, int Height)
+        {
+            Console.Clear();
+        }
+    }
+}

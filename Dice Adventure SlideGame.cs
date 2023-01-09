@@ -8,6 +8,8 @@ namespace DiceAdventure
 {
     internal class SlideGame
     {
+        static int board_w = 50;
+        static int board_h = 30;
         const int X_SIZE = 3;
         const int Y_SIZE = 3;
         char cnt = '1';
@@ -15,10 +17,44 @@ namespace DiceAdventure
         // 게임의 제목과 화면을 출력한다.
         static void scene()
         {
-            Console.WriteLine("==================================");
-            Console.WriteLine("\t  슬라이드 게임");
-            Console.WriteLine("==================================");
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2);
+            Console.WriteLine("=====================================");
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 + 1);
+            Console.WriteLine("\t\t  슬라이드 게임");
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 + 2);
+            Console.WriteLine("=====================================");
+            Console.SetCursorPosition(board_w - board_w / 2, board_h / 2 + 4);
+            Console.WriteLine("슬라이드 게임 : 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8을 제자리에 맞춰놓기");
+            Console.SetCursorPosition(board_w - board_w / 2, board_h / 2 + 5);
+            Console.WriteLine("\tw a s d 를 이용하여 각 숫자를 제자리에 위치시켜야 한다.");
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 + 7);
+            Console.WriteLine("\t\t  Press Any Key");
+            SlideBoard();
+            Console.ReadLine();
 
+        }
+        public static void SlideBoard()
+        {
+            for (int i = 5; i <= (board_w); i++)
+            {
+                Console.SetCursorPosition(i * 2, 5);
+                Console.Write("□");
+            }
+            for (int i = 5; i <= (board_w); i++)
+            {
+                Console.SetCursorPosition(i * 2, (board_h));
+                Console.Write("□");
+            }
+            for (int i = 5; i <= (board_h); i++)
+            {
+                Console.SetCursorPosition(5 * 2, i);
+                Console.Write("□");
+            }
+            for (int i = 5; i <= (board_h); i++)
+            {
+                Console.SetCursorPosition(board_w * 2, i);
+                Console.Write("□");
+            }
         }
 
         // 처음초기상태화면
@@ -53,21 +89,26 @@ namespace DiceAdventure
             {
                 for (int j = 0; j < Y_SIZE; j++)
                 {
-                    Console.Write("\t{0}", arr[i, j]);
-
+                    Console.SetCursorPosition(board_w + j * 5, board_h / 2 - board_h / 4 + i * 5 - 1);
+                    Console.Write(" ___ ");
+                    Console.SetCursorPosition(board_w + j * 5, board_h/2 - board_h/4 + i * 5);
+                    Console.Write("| {0} |", arr[i, j]);
+                    Console.SetCursorPosition(board_w + j * 5, board_h / 2 - board_h / 4 + i * 5 + 1);
+                    Console.Write(" ￣￣ ");
                 }
-                Console.WriteLine();
-                Console.WriteLine();
+                    
             }
+            SlideBoard();
         }
 
         // 게임을 시작하는 함수
 
         static void startgame(char[,] arr, bool m_checkpoint)
         {
+            Console.Clear();
             while (true)
             {
-                scene(); // 제목을 출력하는 함수 호출
+                //scene(); // 제목을 출력하는 함수 호출
                 view(arr); // 현재 보드의 상태를 출력하는 함수 호출
 
 
@@ -78,11 +119,15 @@ namespace DiceAdventure
                 }
                 // if :1~8까지 전부 제자리에있나 체크하는 함수가
                 //true 라면 게임을 종료하는 문
-                Console.WriteLine("==================================");
+                Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 - board_h / 4 + 15);
+                Console.WriteLine("=========================================");
 
                 // 명령어를 입력하는 입력문
+                Console.SetCursorPosition(board_w - board_w/4, board_h / 2 - board_h / 4 + 15 + 1);
                 Console.WriteLine("실행한 횟수 : {0}", cm_count);
                 cm_count++; // 실행한 횟수를 증가시킨다.
+                Console.SetCursorPosition(board_w - board_w/4, board_h / 2 - board_h / 4 + 15+2);
+
                 Console.Write("명령어를 입력하세요(w,a,s,d) : ");
                 char.TryParse(Console.ReadLine(), out char command);
 
@@ -151,7 +196,7 @@ namespace DiceAdventure
                     }
                 } //  } loop : w,a,s,d를 눌러서 X와 숫자의 자리를 바꾸는 Swap기능
                 m_checkpoint = checkgame(arr); // 1~8까지 전부 제자리에 위치해있는지 확인하는 함수호출
-                Console.Clear();
+                //Console.Clear();
             }
         }
 
@@ -196,6 +241,7 @@ namespace DiceAdventure
             char[,] arr = new char[3, 3] { { '4', '1', '2' }, { '3', '5', '7' }, { '6', '8', 'X' } };
             // init(arr,'1'); // 처음 배열을 초기화하는 함수 
             bool m_checkpoint = false; // 게임종료 체크 포인트는 false로 설정해놓는다.
+            scene();
             startgame(arr, m_checkpoint); // 게임을 시작하는 함수 호출
 
         }

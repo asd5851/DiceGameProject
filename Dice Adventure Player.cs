@@ -10,6 +10,7 @@ namespace DiceAdventure
     {
         private int location;
         private int hp;
+        private string name;
         public int Location
         {
             get
@@ -32,17 +33,30 @@ namespace DiceAdventure
                 hp = value;
             }
         }
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
     }
+  
     public class MovePlayer : Player
     {
         public void MoveForwardEvent(Player player)
         {
             Random random = new Random();
-            player.Location = player.Location + random.Next(0,3+1)*2;
+            player.Location = player.Location + random.Next(0, 3 + 1) * 2;
         }
-        public void MoveBackwardEvent(Player player) {
+        public void MoveBackwardEvent(Player player)
+        {
             Random random = new Random();
-            player.Location = player.Location - random.Next(-3, 0 + 1)*2;
+            player.Location = player.Location - random.Next(-3, 0 + 1) * 2;
         }
     }
     public class HP_Player : Player
