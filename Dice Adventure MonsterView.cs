@@ -29,7 +29,6 @@ namespace DiceAdventure
                 case 2:
                     wolf.Script();
                     MonsterFaceWolf(Width, Height);
-
                     break;
                 case 3:
                     goblin.Script();
@@ -38,17 +37,17 @@ namespace DiceAdventure
                     break;
                 case 4:
                     troll.Script();
-                    //MonsterFace(Width, Height);
+                    MonsterFaceTroll(Width, Height);
 
                     break;
                 case 5:
                     golem.Script();
-                    //MonsterFace(Width, Height);
+                    MonsterFaceGolem(Width, Height);
 
                     break;
                 case 6:
                     dragon.Script();
-                    //MonsterFace(Width, Height);
+                    MonsterFaceDragon(Width, Height);
 
                     break;
             }
@@ -87,6 +86,36 @@ namespace DiceAdventure
                         break;
                     case 6:
                         dragon.PlayerWin();
+                        view.HPview(player, Width, Height);
+                        break;
+                }
+            }
+            else if (monster_hp == compare_monster)
+            {
+                switch (monster_hp)
+                {
+                    case 1:
+                        rabbit.PlayerDraw();
+                        view.HPview(player, Width, Height);
+                        break;
+                    case 2:
+                        wolf.PlayerDraw();
+                        view.HPview(player, Width, Height);
+                        break;
+                    case 3:
+                        goblin.PlayerDraw();
+                        view.HPview(player, Width, Height);
+                        break;
+                    case 4:
+                        troll.PlayerDraw();
+                        view.HPview(player, Width, Height);
+                        break;
+                    case 5:
+                        golem.PlayerDraw();
+                        view.HPview(player, Width, Height);
+                        break;
+                    case 6:
+                        dragon.PlayerDraw();
                         view.HPview(player, Width, Height);
                         break;
                 }
@@ -134,63 +163,140 @@ namespace DiceAdventure
         }
         public void MonsterFaceRabbit(int Width, int Height)
         {
+            Console.SetCursorPosition(Width / 2, Height / 2 - 4);
+            Console.WriteLine("      ●          ●");
+            Console.SetCursorPosition(Width / 2, Height / 2 - 3);
+            Console.WriteLine("     ●●        ●●");
             Console.SetCursorPosition(Width / 2, Height / 2 - 2);
-            Console.WriteLine("      **");
+            Console.WriteLine("    ●  ●      ●  ●");
             Console.SetCursorPosition(Width / 2, Height / 2 - 1);
-            Console.WriteLine("   **  ** ");
+            Console.WriteLine("    ●  ●      ●  ●");
             Console.SetCursorPosition(Width / 2, Height / 2);
-            Console.WriteLine(" **   **");
+            Console.WriteLine("    ●  ●●●●●  ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 1);
-            Console.WriteLine("** -  ********○");
+            Console.WriteLine("   ●                ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 2);
-            Console.WriteLine(" *          *");
+            Console.WriteLine("  ●    ●      ●    ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 3);
-            Console.WriteLine("  ************");
+            Console.WriteLine("  ●        ●        ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 4);
-            Console.WriteLine("    **      **");
+            Console.WriteLine("  ●        ㄴ        ●");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 5);
+            Console.WriteLine("  ●●●●●●●●●●●");
         }
         public void MonsterFaceWolf(int Width, int Height)
         {
-            Console.SetCursorPosition(Width / 2, Height / 2 - 4);
-            Console.WriteLine(" ****             *****");
             Console.SetCursorPosition(Width / 2, Height / 2 - 3);
-            Console.WriteLine(" *    *          *    *");
+            Console.WriteLine("              /＼");
             Console.SetCursorPosition(Width / 2, Height / 2 - 2);
-            Console.WriteLine(" *   ** *********     * ");
+            Console.WriteLine("         ____//＼＼");
             Console.SetCursorPosition(Width / 2, Height / 2 - 1);
-            Console.WriteLine("  *                  **");
+            Console.WriteLine("    ____/  ____    |");
             Console.SetCursorPosition(Width / 2, Height / 2);
-            Console.WriteLine("    *                 *");
+            Console.WriteLine("  ●       ◎     ");
             Console.SetCursorPosition(Width / 2, Height / 2 + 1);
-            Console.WriteLine("    *  ◎      ◎    ** *");
+            Console.WriteLine("   ＼______");
             Console.SetCursorPosition(Width / 2, Height / 2 + 2);
-            Console.WriteLine("    *               *");
+            Console.WriteLine("     _____/      /");
             Console.SetCursorPosition(Width / 2, Height / 2 + 3);
-            Console.WriteLine("     *     ●       *");
-            Console.SetCursorPosition(Width / 2, Height / 2 + 4);
-            Console.WriteLine("      *            *");
-            Console.SetCursorPosition(Width / 2, Height / 2 + 5);
-            Console.WriteLine("       ***  ㅡ ***");
+            Console.WriteLine("     ＼_________／");
+
+
         }
         public void MonsterFaceGoblin(int Width, int Height)
         {
-
+            Console.SetCursorPosition(Width / 2, Height / 2 - 3);
+            Console.WriteLine("              ●●●● ");
             Console.SetCursorPosition(Width / 2, Height / 2 - 2);
-            Console.WriteLine("     ****** ");
+            Console.WriteLine("            ●        ● ");
             Console.SetCursorPosition(Width / 2, Height / 2 - 1);
-            Console.WriteLine("*** *      *  ***");
+            Console.WriteLine("     ●●●● ＼   ／  ●●●●");
             Console.SetCursorPosition(Width / 2, Height / 2);
-            Console.WriteLine(" ** *◎ ◎  * **");
+            Console.WriteLine("      ●                    ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 1);
-            Console.WriteLine("    * ●    *");
+            Console.WriteLine("        ●    ⊙   ⊙      ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 2);
-            Console.WriteLine("     * ㅡ  *");
+            Console.WriteLine("         ●     ▲       ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 3);
-            Console.WriteLine("      ****");
+            Console.WriteLine("          ●           ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 4);
-            Console.WriteLine("        / |／ ");
+            Console.WriteLine("            ●  ▽    ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 5);
-            Console.WriteLine("         / │");
+            Console.WriteLine("              ● ● ●");
+
+        }
+        public void MonsterFaceTroll(int Width, int Height)
+        {
+            Console.SetCursorPosition(Width / 2, Height / 2 - 3);
+            Console.WriteLine("             △  △               ○○");
+            Console.SetCursorPosition(Width / 2, Height / 2 - 2);
+
+            Console.WriteLine("            ●●●●             ○○");
+            Console.SetCursorPosition(Width / 2, Height / 2 - 1);
+
+            Console.WriteLine("        ●            ●        ○○");
+            Console.SetCursorPosition(Width / 2, Height / 2);
+
+            Console.WriteLine("      ●                ●     ○○");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 1);
+
+            Console.WriteLine("     ●    ◎     ◎     ●   ○");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 2);
+
+            Console.WriteLine(" ●●●                  ●●●");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 3);
+
+            Console.WriteLine("     ●    ▲     ▲     ● ○");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 4);
+
+            Console.WriteLine("     ●●●●●●●●●●● ");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 5);
+            Console.WriteLine("      ●                ●");
+
+        }
+        public void MonsterFaceGolem(int Width, int Height)
+        {
+            Console.SetCursorPosition(Width / 2, Height / 2 - 3);
+            Console.WriteLine("     ■■■■■■■■■");
+            Console.SetCursorPosition(Width / 2, Height / 2 - 2);
+            Console.WriteLine("■■ ■   ＼   ／    ■ ■■");
+            Console.SetCursorPosition(Width / 2, Height / 2 - 1);
+            Console.WriteLine("■■ ■   ◎   ◎    ■ ■■");
+            Console.SetCursorPosition(Width / 2, Height / 2);
+            Console.WriteLine(" ■  ■■■■■■■■■  ■");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 1);
+            Console.WriteLine(" ■  ■■□□□□□■■  ■");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 2);
+            Console.WriteLine(" ■  ■■■■■■■■■  ■");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 3);
+            Console.WriteLine("       ■          ■ ");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 4);
+            Console.WriteLine("     ■■■      ■■■ ");
+
+        }
+        public void MonsterFaceDragon(int Width, int Height)
+        {
+            Console.SetCursorPosition(Width / 2, Height / 2 - 3);
+            Console.WriteLine("               ■■     ■■■■■■    ■■");
+            Console.SetCursorPosition(Width / 2, Height / 2 - 2);
+            Console.WriteLine("             ■   ■    ■        ■   ■   ■");
+            Console.SetCursorPosition(Width / 2, Height / 2 - 1);
+            Console.WriteLine("           ■      ■   ■ ⊙  ⊙ ■  ■      ■");
+            Console.SetCursorPosition(Width / 2, Height / 2);
+            Console.WriteLine("         ■          ■ ■        ■ ■         ■");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 1);
+            Console.WriteLine("       ■        ■   ■ ■      ■ ■   ■       ■ ");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 2);
+            Console.WriteLine("      ■     ■        ■  ■△■  ■        ■     ■   ");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 3);
+            Console.WriteLine("    ■   ■            ■          ■            ■   ■      ");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 4);
+            Console.WriteLine("   ■                   ■■■■■■                   ■");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 5);
+            Console.WriteLine("                          ■    ■                   ");
+
+
+
         }
     }
 }

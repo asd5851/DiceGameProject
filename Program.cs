@@ -24,8 +24,10 @@ namespace DiceAdventure
             MovePlayer moveplayer = new MovePlayer(); // 플레이어 움직이는 클래스
             Dice_Roll d_roll = new Dice_Roll();
             BattleComputer battlecomputer = new BattleComputer();
+            CardGame card = new CardGame();
 
             View view = new View();
+            StartStory startstory = new StartStory();
             StartView startview = new StartView();
             MonsterView monsterview = new MonsterView();
 
@@ -39,18 +41,22 @@ namespace DiceAdventure
             int compare_move = 0;
             int monster_temp = 0;
             player.HP = 10;
-            player.Location = 3; // 3 ~ 108
+            player.Location = 3;// 3 ~ 108
             player.Name = "플레이어";
 
             computer.HP = 15;
             computer.Location = 3;
-            computer.Name = "컴퓨터";
+            computer.Name = "악당";
+            card.CardGameMain();
+            //monsterview.MonsterFaceDragon(m_width, m_height);
+            //view.Frame(m_width,m_height);
             //startview.BlingStartView();
+            //startstory.ShowStory();
             //gamelogic.Game(player,computer, view, d_roll, monsterview);
             //snakegame.SnakeMain();
             //slidegame.Slidegame();
 
-            battlecomputer.GameLogic(player, computer, view);
+            //battlecomputer.GameLogic(player, computer, view);
 
 
             //MovePlayer(player, view, d_roll, true);

@@ -47,6 +47,8 @@ namespace DiceAdventure
             Console.WriteLine("뱀 게임을 시작합니다.");
             Console.SetCursorPosition(Width / 2, Height / 2+2);
             Console.WriteLine("5개의 아이템을 먹으면 승리이며 벽에 부딪힐 경우 사망합니다.");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 3);
+            Console.WriteLine("승리할 경우 체력이 +1 증가하며 사망했을경우 체력이 -1 깎입니다.");
             SnakeBoard(Width, Height);
             Console.ReadLine();
         }
@@ -141,7 +143,7 @@ namespace DiceAdventure
         }
 
 
-        public void SnakeMain()
+        public bool SnakeMain()
         {
             SnakeGAME snake = new SnakeGAME();
             snake_Y[0] = 10; // 시작 x좌표
@@ -152,7 +154,8 @@ namespace DiceAdventure
 
             snake_Y[2] = 10;
             snake_X[2] = 12;
-            
+            item_cnt= 0;
+            snake_length = 2;
             item_X = random.Next(2, (15));
             item_Y = random.Next(2, (15));
             WritePoint(10, 10,true ,"●");
@@ -165,12 +168,12 @@ namespace DiceAdventure
                 
                 if (snake.Logic() == false)
                 {
-                    Console.WriteLine("사망");
+                    return false;
                     break;
                 }
                 else if(item_cnt >= 5)
                 {
-                    Console.WriteLine("승리하셨습니다.");
+                    return true;
                     break;
                 }
             }

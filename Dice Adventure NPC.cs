@@ -53,6 +53,15 @@ namespace DiceAdventure
                 case 8:
                     Q8(player, kind_NPC);
                     break;
+                case 9:
+                    Q9(player, kind_NPC);
+                    break;
+                case 10:
+                    Q10(player, kind_NPC);
+                    break;
+                case 11:
+                    Q11(player, kind_NPC);
+                    break;
             }
         }
         public void QuestMessage(bool kind)
@@ -378,6 +387,106 @@ namespace DiceAdventure
                 CheckQ(player, false, 2);
             }
         }
+        public void Q9(Player player, bool kind_NPC)
+        {
+            Console.Clear();
+            view.Frame(Width, Height);
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 - 1);
+            Console.WriteLine("[Hard]");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
+            Console.WriteLine("사용자에 의해 동적으로 할당되는 메모리 공간이다.");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
+            Console.WriteLine("영역의 크기는 런타임에 의해 결정되며 메모리 관리를 잘못할 경우 메모리 누수가 발생한다.");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 2);
+            Console.WriteLine("이 영역은 어디인가?");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 3);
+            Console.Write("답을 쓰시오 : ");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 4);
+            string result = Console.ReadLine();
+            if (result.Equals("힙") || result.Equals("heap") || result.Equals("HEAP"))
+            {
+                if (kind_NPC)
+                {
+                    player.HP += 1;
+                    CheckQ(player, true, 1);
+                }
+                else
+                {
+                    CheckQ(player, true, 0);
+                }
+            }
+            else
+            {
+                player.HP -= 2;
+                CheckQ(player, false, 2);
+            }
+        }
+        public void Q10(Player player, bool kind_NPC)
+        {
+            Console.Clear();
+            view.Frame(Width, Height);
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 - 1);
+            Console.WriteLine("[Hard]");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
+            Console.WriteLine("함수의 호출과 관계되는 지역변수와 매개변수가 저장되는 영역이다.");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
+            Console.WriteLine("컴파일 타임에의해 크기가 결정되며 크기를 초과할 경우 스택 오버플로우가 발생한다.");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 2);
+            Console.WriteLine("이 영역은 어디인가?");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 3);
+            Console.Write("답을 쓰시오 : ");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 4);
+            string result = Console.ReadLine();
+            if (result.Equals("스택") || result.Equals("stack") || result.Equals("STACK"))
+            {
+                if (kind_NPC)
+                {
+                    player.HP += 2;
+                    CheckQ(player, true, 2);
+                }
+                else
+                {
+                    CheckQ(player, true, 0);
+                }
+            }
+            else
+            {
+                player.HP -= 3;
+                CheckQ(player, false, 3);
+            }
+        }
+        public void Q11(Player player, bool kind_NPC)
+        {
+            Console.Clear();
+            view.Frame(Width, Height);
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 - 1);
+            Console.WriteLine("[Hard]");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
+            Console.WriteLine("다양한 길이를 가진 데이터를 고정된 길이를 가진 데이터로 매핑한 값을");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
+            Console.WriteLine("무엇이라고 하는가?");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 3);
+            Console.Write("답을 쓰시오 : ");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 4);
+            string result = Console.ReadLine();
+            if (result.Equals("해시") || result.Equals("hash") || result.Equals("HASH"))
+            {
+                if (kind_NPC)
+                {
+                    player.HP += 2;
+                    CheckQ(player, true, 2);
+                }
+                else
+                {
+                    CheckQ(player, true, 0);
+                }
+            }
+            else
+            {
+                player.HP -= 3;
+                CheckQ(player, false, 3);
+            }
+        }
         protected void CheckQ(Player player, bool check, int minus_hp)
         {
             Console.Clear();
@@ -398,9 +507,6 @@ namespace DiceAdventure
 
             Console.ReadLine();
         }
-        protected void PlusCheckQ(Player player, bool check, int plus_hp)
-        {
 
-        }
     }
 }

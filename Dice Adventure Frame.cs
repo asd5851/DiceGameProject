@@ -8,7 +8,8 @@ namespace DiceAdventure
 {
     public class FrameView
     {
-        
+        private int board_w = 50;
+        private int board_h = 30;
         // 게임의 틀
         public void Frame(int Width, int Height)
         {
@@ -103,15 +104,29 @@ namespace DiceAdventure
             Frame(Width, Height);
         }
         
+        public void MiniGameFrame()
+        {
+            for (int i = 5; i <= (board_w); i++)
+            {
+                Console.SetCursorPosition(i * 2, 5);
+                Console.Write("□");
+            }
+            for (int i = 5; i <= (board_w); i++)
+            {
+                Console.SetCursorPosition(i * 2, (board_h));
+                Console.Write("□");
+            }
+            for (int i = 5; i <= (board_h); i++)
+            {
+                Console.SetCursorPosition(5 * 2, i);
+                Console.Write("□");
+            }
+            for (int i = 5; i <= (board_h); i++)
+            {
+                Console.SetCursorPosition(board_w * 2, i);
+                Console.Write("□");
+            }
+        }
         
-        public void WaitView(int Width, int Height)
-        {
-            Frame(Width, Height);
-        }
-
-        public void DiceFrame2(int Width, int Height)
-        {
-            Console.Clear();
-        }
     }
 }

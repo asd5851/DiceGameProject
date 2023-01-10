@@ -12,6 +12,7 @@ namespace DiceAdventure
         Random random = new Random();
         SlideGame slide = new SlideGame();
         SnakeGAME snake = new SnakeGAME();
+        CardGame card = new CardGame();
         FrameView frame = new FrameView();
         BattleComputer battlecomputer = new BattleComputer();
         Player player_temp = new Player();
@@ -19,11 +20,14 @@ namespace DiceAdventure
         public static int[] arr = new int[111];
         public static int m_width = 110;
         public static int m_height = 10;
+        int m_minigame_width = 50;
+        int m_minigame_height = 30;
 
+        // 게임을 실행하는 로직
         public void Game(Player player, Player computer, View view, Dice_Roll d_roll, MonsterView monsterview)
         {
-            player_temp = player;
-            computer_temp = computer;
+            player_temp = player; // 플레이어의 정보를 담아두는 temp
+            computer_temp = computer; // 컴퓨터의 정보를 담아두는 temp
             bool player_turn = true;
             bool game_clear = player.HP > 0 && player.Location < m_width && computer.HP > 0 && computer.Location < m_width;
             while (game_clear)
@@ -32,95 +36,141 @@ namespace DiceAdventure
                 view.ShowMap(player, m_width, m_height, 0, player.Location, true); // 주사위를 굴리면 맵을 보여준다.
                 MovePlayer(player, view, d_roll, true); // 주사위를 굴리고 플레이어의 위치 이동
 
+                // 플레이어의 턴
                 if (player_turn)
                 {
+                    // 컴퓨터의 위치를 보여준다
                     view.ShowOnlyPlayer(computer_temp, m_width, m_height);
-                }
-                else
-                {
-                    view.ShowOnlyPlayer(player_temp, m_width, m_height);
-                }
-                Console.Clear();
-
-                // 플레이어의 턴 일때, 플레이어와 컴퓨터의과거 위치가 같다면
-                if(player_turn)
-                {
+                    // 플레이어의 턴 일때, 플레이어와 컴퓨터의 위치가 같다면
                     if (player.Location == computer_temp.Location)
                     {
-                        //battlecomputer.GameLogic(player, view, d_roll, false);
                         /* 싸운다 */
+                        battlecomputer.GameLogic(player, computer_temp, view);
                     }
                 }
-                // 컴퓨터의 턴 일때, 컴퓨터와 플레이어의 과거위치가 같다면
-                else if(!player_turn)
+                // 컴퓨터의 턴
+                else if (!player_turn)
                 {
-                    if(player.Location == player_temp.Location)
+                    // 플레이어의 위치를 보여준다.
+                    view.ShowOnlyPlayer(player_temp, m_width, m_height);
+                    // 컴퓨터의 턴 일떄, 플레이어와 컴퓨터의 위치가 같다면
+                    if (player.Location == player_temp.Location)
                     {
                         /* 싸운다 */
+                        battlecomputer.GameLogic(player_temp, computer, view);
                     }
                 }
-                
+                Console.Clear();
                 // 싸우고나서 다시 진행
 
+                // 플레이어의 위치가 소수라면
                 if (EratosCheck(player.Location / 2))
                 {
                     if (player_turn)
                     {
-                        /*미니게임실행*/
-                        Random random= new Random();
+                        ///*미니게임실행*/
+                        Random random = new Random();
                         int choice = random.Next(1, 2 + 1);
-                        switch(choice)
+                        switch (choice)
                         {
                             case 1:
-                                slide.Slidegame();
+                                if (slide.Slidegame())
+                                {
+                                    player.HP = player.HP + 1;
+                                    view.ShowWin(player, m_minigame_width, m_minigame_height);
+                                }
+                                else
+                                {
+                                    player.HP = player.HP - 1;
+                                    view.ShowLoose(player, m_minigame_width, m_minigame_height);
+                                }
+
                                 break;
                             case 2:
-                                snake.SnakeMain();
+
+                                if (snake.SnakeMain())
+                                {
+                                    player.HP = player.HP + 1;
+                                    view.ShowWin(player, m_minigame_width, m_minigame_height);
+                                }
+                                else
+                                {
+                                    player.HP = player.HP - 1;
+                                    view.ShowLoose(player, m_minigame_width, m_minigame_height);
+                                }
+                                break;
+                            case 3:
+                                if (card.CardGameMain())
+                                {
+                                    player.HP = player.HP + 1;
+                                    view.ShowWin(player, m_minigame_width, m_minigame_height);
+                                }
+                                else
+                                {
+                                    player.HP = player.HP - 1;
+                                    view.ShowLoose(player, m_minigame_width, m_minigame_height);
+                                }
                                 break;
                         }
                     }
                 }
                 else
                 {
+                    // 플레이어의 위치에 따른 이벤트 실행
                     switch ((player.Location / 2) % 10)
                     {
                         case 0:
+                            /* 몬스터 배틀 */
                             MonsterBattleLogic(player, view, d_roll, monsterview);
                             break;
                         case 1:
-                            /*퀴즈실행*/
+                            /* 위치바꾸기 */
                             if (player_turn)
                             {
-                                quest.QuestMessage(true);
-                                quest.Quest(player, random.Next(1, 8 + 1), false);
+                                SwapLocation(player, computer_temp);
+                            }
+                            else
+                            {
+                                SwapLocation(player, player_temp);
                             }
                             break;
                         case 2:
-                            /*몬스터배틀*/
+                            /* 몬스터배틀 */
                             MonsterBattleLogic(player, view, d_roll, monsterview);
                             break;
                         case 3:
-                            /*체력깎는퀴즈*/
+                            /* 전부다 태초 */
                             if (player_turn)
                             {
-                                quest.QuestMessage(true);
-                                quest.Quest(player, random.Next(1, 8 + 1), false);
+                                AllGoFirst(player, computer_temp);
+                            }
+                            else
+                            {
+                                AllGoFirst(player, player_temp);
                             }
                             break;
                         case 4:
-                            MonsterBattleLogic(player, view, d_roll, monsterview);
-
+                            /* 퀴즈 */
+                            if (player_turn)
+                            {
+                                quest.QuestMessage(false);
+                                quest.Quest(player, random.Next(1, 11 + 1), false);
+                            }
                             break;
                         case 5:
-                            /*몬스터배틀*/
+                            /* 몬스터배틀 */
                             MonsterBattleLogic(player, view, d_roll, monsterview);
                             break;
                         case 6:
-                            MonsterBattleLogic(player, view, d_roll, monsterview);
-
+                            /* 퀴즈 */
+                            if (player_turn)
+                            {
+                                quest.QuestMessage(false);
+                                quest.Quest(player, random.Next(1, 11 + 1), false);
+                            }
                             break;
                         case 7:
-                            /*태초*/
+                            /* 태초 */
                             GoFirst(player);
                             break;
                         case 8:
@@ -128,11 +178,11 @@ namespace DiceAdventure
 
                             break;
                         case 9:
+                            /* 퀴즈 */
                             if (player_turn)
                             {
-                                /*체력채워주는퀴즈*/
-                                quest.QuestMessage(false);
-                                quest.Quest(player, random.Next(1, 8 + 1), true);
+                                quest.QuestMessage(true);
+                                quest.Quest(player, random.Next(1, 11 + 1), true);
                             }
                             break;
                     }
@@ -141,10 +191,11 @@ namespace DiceAdventure
                 if (player_turn)
                 {
                     player_temp = player;
-                    player = computer;
+                    player = computer_temp;
                     player_turn = false;
                 }
-                else // 컴퓨터의 턴을 다쓰면 플레이어temp에있는 정보를 다시 플레이어한테 덮어써서 진행
+                else // 컴퓨터의 턴을 다쓰면 컴퓨터temp에 컴퓨터의 정보 저장
+                     // 플레이어temp에있는 정보를 다시 플레이어한테 덮어써서 진행
                 {
                     computer_temp = computer;
                     player = player_temp;
@@ -152,31 +203,36 @@ namespace DiceAdventure
                 }
             }
         }
+
+        // 몬스터의 배틀로직
+        // 몬스터의 체력과 주사위의 눈을 비교하여 승리, 패배, 드로우 진행
         public void MonsterBattleLogic(Player player, View view, Dice_Roll d_roll, MonsterView monsterview)
         {
             int monster_temp = default;
             int compare_monster = default;
-            if (player.Location < m_width)
+            // 플레이어의 위치가 절반도 오지 않았다면 약한 몬스터 출현
+            if (player.Location < m_width / 2)
             {
                 monster_temp = random.Next(1, 3 + 1); // 1 ~ 3 까지 랜덤 인수를 받아서
                 monsterview.MonsterMessage(m_width, m_height, monster_temp); // 어떤 몬스터를 만나는지 출력
-                view.MessageDice(player,m_width, m_height); // 몬스터를 만나면 주사위를 굴리라는 메세지 출력
+                view.MessageDice(player, m_width, m_height); // 몬스터를 만나면 주사위를 굴리라는 메세지 출력
                 compare_monster = MovePlayer(player, view, d_roll, false); // 주사위를 굴린다.
                 monsterview.MonsterCompareView(ref player, m_width, m_height, compare_monster, monster_temp); // 굴린 주사위와 몬스터의 눈 비교
             }
-            else if (player.Location >= m_width)
+            // 플레이어의 위치가 절반이상 왔다면 강한 몬스터 출현
+            else if (player.Location >= m_width / 2)
             {
-                monster_temp = random.Next(1, 6 + 1); // 1 ~ 6까지 랜덤 인수 받아서
+                monster_temp = random.Next(3, 6 + 1); // 3 ~ 6까지 랜덤 인수 받아서
                 monsterview.MonsterMessage(m_width, m_height, monster_temp); // 어떤 몬스터를 만나는지
                 view.MessageDice(player, m_width, m_height);
                 compare_monster = MovePlayer(player, view, d_roll, false); // 주사위를 굴린다.
                 monsterview.MonsterCompareView(ref player, m_width, m_height, compare_monster, monster_temp);
             }
         }
+        // 플레이어가 주사위를 둘려서 움직이는 로직
         public int MovePlayer(Player player, View view, Dice_Roll d_roll, bool move)
         {
             int result;
-
             switch (result = d_roll.RollDice())
             {
                 case 1:
@@ -207,16 +263,48 @@ namespace DiceAdventure
             return result;
 
         }
+        // 함정에빠져서 처음으로 돌아가는 로직
         public void GoFirst(Player player)
         {
+            Console.Clear();
             player.Location = 3;
             Console.SetCursorPosition(m_width / 2, m_height / 2);
             Console.WriteLine("함정에 빠졌다!");
-            Console.SetCursorPosition(m_width / 2, m_height / 261);
+            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
             Console.WriteLine("태초로 돌아갑니다.");
             frame.Frame(m_width, m_height);
             Console.ReadLine();
         }
+        public void AllGoFirst(Player player, Player computer)
+        {
+            Console.Clear();
+            player.Location = 3;
+            computer.Location = 3;
+            Console.SetCursorPosition(m_width / 2, m_height / 2);
+            Console.WriteLine("함정에 빠졌다!");
+            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
+            Console.WriteLine("{0} : 혼자 죽을 수 없지!");
+            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
+            Console.WriteLine("물귀신 작전! 둘이 함께 태초로 돌아갑니다.");
+            frame.Frame(m_width, m_height);
+            Console.ReadLine();
+        }
+        public void SwapLocation(Player player, Player computer)
+        {
+            Console.Clear();
+            Console.SetCursorPosition(m_width / 2, m_height / 2);
+            Console.WriteLine("{0}은 어지러움을 느낍니다.", player.Name);
+            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
+            Console.WriteLine("알 수 없는 힘에의해 둘의 위치가 바뀌어버립니다.");
+            Player temp = new Player();
+            temp.Location = player.Location;
+            player.Location = computer.Location;
+            computer.Location = temp.Location;
+            frame.Frame(m_width, m_height);
+            Console.ReadLine();
+        }
+
+        // 에라토스테네스의 체를 구현하여 소수를 판별한다.
         public static void Eratos()
         {
             for (int i = 2; i <= m_width; i++)

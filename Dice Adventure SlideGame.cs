@@ -236,14 +236,32 @@ namespace DiceAdventure
         //  } 1~8까지 전부 제자리에 있는지 체크하는 함수
 
         // { 메인함수
-        public void Slidegame()
+        public bool Slidegame()
         {
             char[,] arr = new char[3, 3] { { '4', '1', '2' }, { '3', '5', '7' }, { '6', '8', 'X' } };
             // init(arr,'1'); // 처음 배열을 초기화하는 함수 
             bool m_checkpoint = false; // 게임종료 체크 포인트는 false로 설정해놓는다.
+            cm_count= 0;
             scene();
             startgame(arr, m_checkpoint); // 게임을 시작하는 함수 호출
-
+            if(cm_count > 100)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(board_w - board_w / 4, board_h / 2);
+                Console.WriteLine("실패했습니다! 체력이 깎입니다.");
+                SlideBoard();
+                Console.ReadLine();
+                return false;
+            }
+            else
+            {
+                Console.Clear();
+                Console.SetCursorPosition(board_w - board_w / 4, board_h / 2);
+                Console.WriteLine("성공했습니다! 체력이 증가합니다.");
+                SlideBoard();
+                Console.ReadLine();
+                return true;
+            }
         }
         // } 메인함수
     }
