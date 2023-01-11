@@ -10,8 +10,8 @@ namespace DiceAdventure
 
     public class NPC
     {
-        int Width = 110;
-        int Height = 10;
+        private int Width = 110;
+        private int Height = 10;
 
         FrameView frameview = new FrameView();
         public NPC() { }
@@ -87,7 +87,10 @@ namespace DiceAdventure
 
             }
             frameview.Frame(110, 10);
-            Console.ReadLine();
+            Thread.Sleep(1000);
+            Console.SetCursorPosition(8, 10 / 2 + 4);
+            Console.WriteLine("Press Any Key");
+            Console.ReadKey(true);
         }
         protected virtual void ViewNPC()
         {
@@ -123,7 +126,7 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2 + Width / 4, Height / 2 + 4);
             Console.WriteLine("     ****");
         }
-        public void Q1(Player player, bool kind_NPC)
+        private void Q1(Player player, bool kind_NPC)
         {
             Console.Clear();
             frameview.Frame(Width, Height);
@@ -160,7 +163,7 @@ namespace DiceAdventure
             }
 
         }
-        public void Q2(Player player, bool kind_NPC)
+        private void Q2(Player player, bool kind_NPC)
         {
             Console.Clear();
             frameview.Frame(Width, Height);
@@ -194,7 +197,7 @@ namespace DiceAdventure
             }
 
         }
-        public void Q3(Player player, bool kind_NPC)
+        private void Q3(Player player, bool kind_NPC)
         {
             Console.Clear();
             frameview.Frame(Width, Height);
@@ -227,7 +230,7 @@ namespace DiceAdventure
                 CheckQ(player, false, 2);
             }
         }
-        public void Q4(Player player, bool kind_NPC)
+        private void Q4(Player player, bool kind_NPC)
         {
             Console.Clear();
             view.Frame(Width, Height);
@@ -259,7 +262,7 @@ namespace DiceAdventure
                 CheckQ(player, false, 2);
             }
         }
-        public void Q5(Player player, bool kind_NPC)
+        private void Q5(Player player, bool kind_NPC)
         {
             Console.Clear();
             view.Frame(Width, Height);
@@ -291,7 +294,7 @@ namespace DiceAdventure
                 CheckQ(player, false, 2);
             }
         }
-        public void Q6(Player player, bool kind_NPC)
+        private void Q6(Player player, bool kind_NPC)
         {
             Console.Clear();
             view.Frame(Width, Height);
@@ -323,7 +326,7 @@ namespace DiceAdventure
                 CheckQ(player, false, 3);
             }
         }
-        public void Q7(Player player, bool kind_NPC)
+        private void Q7(Player player, bool kind_NPC)
         {
             Console.Clear();
             view.Frame(Width, Height);
@@ -355,7 +358,7 @@ namespace DiceAdventure
                 CheckQ(player, false, 3);
             }
         }
-        public void Q8(Player player, bool kind_NPC)
+        private void Q8(Player player, bool kind_NPC)
         {
             Console.Clear();
             view.Frame(Width, Height);
@@ -387,7 +390,7 @@ namespace DiceAdventure
                 CheckQ(player, false, 2);
             }
         }
-        public void Q9(Player player, bool kind_NPC)
+        private void Q9(Player player, bool kind_NPC)
         {
             Console.Clear();
             view.Frame(Width, Height);
@@ -421,7 +424,7 @@ namespace DiceAdventure
                 CheckQ(player, false, 2);
             }
         }
-        public void Q10(Player player, bool kind_NPC)
+        private void Q10(Player player, bool kind_NPC)
         {
             Console.Clear();
             view.Frame(Width, Height);
@@ -455,7 +458,7 @@ namespace DiceAdventure
                 CheckQ(player, false, 3);
             }
         }
-        public void Q11(Player player, bool kind_NPC)
+        private void Q11(Player player, bool kind_NPC)
         {
             Console.Clear();
             view.Frame(Width, Height);
@@ -494,7 +497,7 @@ namespace DiceAdventure
             if (check)
             {
                 Console.WriteLine("\t정답이다!");
-                Console.WriteLine("\t체력이 {0}만큼 회복되었다.",minus_hp);
+                Console.WriteLine("\t체력이 {0}만큼 회복되었다.", minus_hp);
                 view.HPview(player, 110, 10);
             }
             else
@@ -505,7 +508,7 @@ namespace DiceAdventure
             }
             frameview.Frame(110, 10);
 
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
 
     }

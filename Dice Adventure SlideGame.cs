@@ -17,20 +17,22 @@ namespace DiceAdventure
         // 게임의 제목과 화면을 출력한다.
         static void scene()
         {
-            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2);
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 - 8);
             Console.WriteLine("=====================================");
-            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 + 1);
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 - 6);
             Console.WriteLine("\t\t  슬라이드 게임");
-            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 + 2);
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 - 4);
             Console.WriteLine("=====================================");
-            Console.SetCursorPosition(board_w - board_w / 2, board_h / 2 + 4);
+            Console.SetCursorPosition(board_w - board_w / 2, board_h / 2);
             Console.WriteLine("슬라이드 게임 : 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8을 제자리에 맞춰놓기");
-            Console.SetCursorPosition(board_w - board_w / 2, board_h / 2 + 5);
+            Console.SetCursorPosition(board_w - board_w / 2, board_h / 2 + 2);
             Console.WriteLine("\tw a s d 를 이용하여 각 숫자를 제자리에 위치시켜야 한다.");
-            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 + 7);
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 + 4);
+            Console.WriteLine("\t이동횟수가 100 미만이어야 승리한다.");
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 + 8);
             Console.WriteLine("\t\t  Press Any Key");
             SlideBoard();
-            Console.ReadLine();
+            Console.ReadKey();
 
         }
         public static void SlideBoard()

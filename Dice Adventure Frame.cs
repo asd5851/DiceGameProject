@@ -15,24 +15,46 @@ namespace DiceAdventure
         {
             int main_width = Width + 2;
             int main_height = Height + 1;
-            for (int i = 1; i < main_width; i++)
+
+            for (int i = 1; i <= main_width; i++)
             {
                 Console.SetCursorPosition(i, 1);
-                Console.Write("￣");
+                if (i == main_width)
+                {
+                    Console.Write("┐");
+                }
+                else if (i == 1)
+                {
+                    Console.Write("┌");
+                }
+                else
+                    Console.Write("─");
+
             }
             for (int i = 1; i < main_width; i++)
             {
                 Console.SetCursorPosition(i, main_height);
-                Console.Write("￣");
+
+                Console.Write("─");
             }
-            for (int i = 1; i <= main_height; i++)
+            for (int i = 2; i <= main_height; i++)
             {
                 Console.SetCursorPosition(1, i);
-                Console.Write("│");
+                if (i == 2)
+                {
+                    Console.Write("┌");
+                }
+
+                //Console.Write("│");
             }
-            for (int i = 1; i <= main_height; i++)
+
+            for (int i = 2; i <= main_height; i++)
             {
                 Console.SetCursorPosition(main_width, i);
+                if (i == 2)
+                {
+                    //Console.WriteLine("┐");
+                }
                 Console.Write("│");
             }
 
@@ -46,25 +68,50 @@ namespace DiceAdventure
                 Console.SetCursorPosition(main_width, i);
                 Console.Write("│");
             }
-            for (int i = 1; i < main_width; i++)
+            for (int i = 1; i <= main_width; i++)
             {
                 Console.SetCursorPosition(i, main_height + Height / 2);
-                Console.Write("￣");
+                if (i == main_width)
+                {
+                    Console.Write("┘");
+                }
+                else if(i == main_width / 4)
+                {
+                    Console.Write("┬");
+                }
+                else
+                {
+                    Console.Write("─");
+
+                }
             }
-            for (int i = 1; i < main_height + Height; i++)
+            for (int i = 2; i < main_height + Height; i++)
             {
                 Console.SetCursorPosition(1, i);
                 Console.Write("│");
             }
-            for (int i = main_height + Height/2; i < main_height + Height; i++)
+            for (int i = main_height + Height / 2 + 1; i < main_height + Height; i++)
             {
-                Console.SetCursorPosition(main_width/4, i);
+                Console.SetCursorPosition(main_width / 4, i);
                 Console.Write("│");
             }
-            for(int i=1;i<main_width/4; i++)
+            for (int i = 1; i <= main_width / 4; i++)
             {
+
                 Console.SetCursorPosition(i, main_height + Height);
-                Console.Write("￣");
+                if (i == 1)
+                {
+                    Console.Write("└");
+                }
+                else if (i == main_width / 4)
+                {
+                    Console.Write("┘");
+                }
+                else
+                {
+
+                    Console.Write("─");
+                }
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -103,7 +150,7 @@ namespace DiceAdventure
             DiceFrame(Width, Height);
             Frame(Width, Height);
         }
-        
+
         public void MiniGameFrame()
         {
             for (int i = 5; i <= (board_w); i++)
@@ -127,6 +174,6 @@ namespace DiceAdventure
                 Console.Write("□");
             }
         }
-        
+
     }
 }

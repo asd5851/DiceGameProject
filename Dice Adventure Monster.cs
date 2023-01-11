@@ -34,6 +34,7 @@ namespace DiceAdventure
             Console.WriteLine("\t{0}과의 전투가 시작되었다!",this.Name);
             Console.WriteLine("\t{0} : 토끼잇 토끼잇!",this.Name);
             Console.WriteLine("\t{0}의 체력은 {1} 입니다.",this.Name ,this.HP);
+
         }
         public override void PlayerWin()
         {

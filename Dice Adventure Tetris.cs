@@ -6,82 +6,121 @@ using System.Threading.Tasks;
 
 namespace DiceAdventure
 {
-    enum MapBlock
-    {
-        Void,
-        Wall,
-        Block
-    }
+    /*
+     * 블록의 값 -> 맵에 넣어
+     * 1을 오른쪽 키를 누르면 오른쪽으로 가 
+     */
     public class MakeBlock
     {
-        public void Imino()
+        public void MBlock()
         {
+            int[,] st_mino = new int[4, 4];
+            st_mino[0, 0] = 1;
+            st_mino[1, 0] = 1;
+            st_mino[2, 0] = 1;
+            st_mino[3, 0] = 1;
 
+            int[,] sq_mino = new int[4, 4];
+            st_mino[0, 0] = 1;
+            st_mino[0, 1] = 1;
+            st_mino[1, 0] = 1;
+            st_mino[1, 1] = 1;
+        }
+    }
+    public class TetrisMap
+    {
+        int[,] map = new int[15, 10];
+        int width = 10;
+        int height = 15;
+        public void MakeMap()
+        {
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if (i == height - 1)
+                    { 
+                        map[i, j] = 1;
+                    }
+                    else
+                    {
+                        map[i, j] = 0;
+                    }
+                }
+            }
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    Console.Write(map[i, j]);
+                }
+                Console.WriteLine();
+            }
         }
     }
     public class TetrisView
     {
-        List<List<MapBlock>> list = new List<List<MapBlock>>();
-        public TetrisView(int x, int y)  
-        {
-            for (int i = 0; i < y; i++)
-            {
-                list.Add(new List<MapBlock>());
-                for (int j = 0; j < x; j++)
-                {
-                    if (i == 0)
-                    {
-                        list[i].Add(MapBlock.Wall);
-                    }
-                    else if (i == y - 1)
-                    {
-                        list[i].Add(MapBlock.Wall);
-                    }
-                    else
-                    {
-                        list[i].Add(MapBlock.Void);
-                    }
-                }
-            }
-        } // 생성자 : TetrisView -> 생성되면 이뜻을 따라야 한다.
 
-        public void ViewMap()
-        {
-            for (int i = 0; i < list.Count; i++)
-            {
-                for (int j = 0; j < list[i].Count; j++)
-                {
-                    switch (list[i][j])
-                    {
-                        case MapBlock.Void:
-                            Console.Write("□");
-                            break;
-                        case MapBlock.Wall:
-                            Console.Write("■");
-                            break;
-                        case MapBlock.Block:
-                            Console.Write("＠");
-                            break;
-                    }
-                }
-                Console.WriteLine();
-            }
-        } // Func : ViewMap -> 테트리스 블록, 맵을 눈에 보여주는 func
-        public void SetBlockView(int y, int x)
-        {
-            list[y][x] = MapBlock.Block;
-        }
     }// class : TetrisView -> 테트리스가 눈에 보이는 부분
 
     public class Tetris
     {
-        public static int m_boardX = 10;
-        public static int m_boardY = 20;
-        TetrisView tview = new TetrisView(m_boardX, m_boardY);
+        TetrisMap map = new TetrisMap();
+        ConsoleKeyInfo keyinfo = new ConsoleKeyInfo();
+        int width = 10;
+        int height = 15;
+
+
+        char key;
         public void TetrisMain()
         {
-            tview.SetBlockView(3, 3);
-            tview.ViewMap();
+            int[,] st_mino = new int[4, 4];
+            int X=0, Y=0;
+            st_mino[0, 0] = 1;
+            st_mino[1, 0] = 1;
+            st_mino[2, 0] = 1;
+            st_mino[3, 0] = 1;
+            map.MakeMap();
+            while (true)
+            {
+                Input();
+                switch (key)
+                {
+                    case 'w':
+                        Y--;
+                        for(int i = 0; i < 4; i++)
+                        {
+                            for(int j=0;j<4; j++)
+                            {
+                                st_mino[i + X, j + Y];
+                            }
+                        }
+                        
+                        break;
+                    case 's':
+                        Y++;
+                        break;
+                    case 'd':
+                        X++;
+                        break;
+                    case 'a':
+                        X--;
+                        break;
+                }
+            }
+        }
+        public void HowMove()
+        {
+
+        }
+        public void Input()
+        {
+            if (Console.KeyAvailable)
+            {
+                keyinfo = Console.ReadKey(true);
+                key = keyinfo.KeyChar;
+            }
         }
     }
 }

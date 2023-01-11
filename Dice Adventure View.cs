@@ -19,11 +19,14 @@ namespace DiceAdventure
         Golem golem = new Golem();
         Dragon dragon = new Dragon();
 
+        // 플레이어의 위치를 보여준다.
         public void LocationView(Player player, int Width, int Height)
         {
             Console.SetCursorPosition(5, 2 * Height - 1);
             Console.WriteLine("{0} 위치 : {1}", player.Name, player.Location);
         }
+
+        // 플레이어와 컴퓨터의 체력을 보여준다.
         public void HPview(Player player, int Width, int Height)
         {
             if (player.Name.Equals("악당"))
@@ -38,7 +41,7 @@ namespace DiceAdventure
             }
         }
 
-        // 플레이어가 미니게임에서 이겼을 때 보여주는 함수
+        // 플레이어가 미니게임에서 졌을 때 보여주는 함수
         public void ShowLoose(Player player, int board_w, int board_h)
         {
             Console.Clear();
@@ -51,8 +54,10 @@ namespace DiceAdventure
             Console.SetCursorPosition(board_w / 2, board_h / 2 + 6);
             Console.WriteLine("Presss Any Key");
             MiniGameFrame();
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
+
+        // 플레이어가 미니게임에서 이겼을 때 보여주는 함수
         public void ShowWin(Player player, int board_w, int board_h)
         {
             Console.Clear();
@@ -65,7 +70,7 @@ namespace DiceAdventure
             Console.SetCursorPosition(board_w / 2, board_h / 2 + 6);
             Console.WriteLine("Press Any Key");
             MiniGameFrame();
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
 
         // 플레이어가 앞으로 갈 떄
@@ -94,6 +99,7 @@ namespace DiceAdventure
             }
             Thread.Sleep(500);
         }
+
         // 플레이어가 뒤로 후퇴할떄
         public void PlayerBackView(Player player, int Width, int Height, int location, int playerx)
         {
@@ -141,18 +147,24 @@ namespace DiceAdventure
         }
         public void ShowOnlyPlayer(Player player, int Width, int Height)
         {
+            
             if (player.Name.Equals("악당"))
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.SetCursorPosition(player.Location, Height + Height / 3 - 1);
                 Console.Write("★");
-                Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.ReadKey(true);
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.SetCursorPosition(player.Location, Height + Height / 3);
                 Console.Write("★");
-                Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.ReadKey(true);
             }
+           
         }
         // 지도를 보여준다.
         public void ShowMap(Player player, int Width, int Height, int location, int playerx, bool front)
@@ -187,37 +199,15 @@ namespace DiceAdventure
             Console.WriteLine("      Press Any Key");
             Frame(Width, Height);
             ShowOnlyMap(player, Width, Height);
-            Console.ReadLine();
+            Console.ReadKey(true);
 
 
         }
-
-        public void PrintForward(int Width, int Height)
-        {
-            Console.SetCursorPosition(Width / 2, Height / 2);
-
-            Console.WriteLine("좋은 신발을 발견했습니다.");
-            Console.SetCursorPosition(Width / 2, Height / 2 + 1);
-            Console.WriteLine("앞으로 전진 합니다!");
-            Frame(Width, Height);
-
-        }
-        public void PrintBack(int Width, int Height)
-        {
-            Console.SetCursorPosition(Width / 2, Height / 2);
-            Console.WriteLine("플레이어 : 으엑 똥 밟았다.");
-            Console.SetCursorPosition(Width / 2, Height / 2 + 1);
-            Console.WriteLine("똥을 밟아서 미끄러졌습니다.");
-            Console.SetCursorPosition(Width / 2, Height / 2 + 1);
-            Console.WriteLine("뒤로 후퇴합니다.");
-            Frame(Width, Height);
-        }
-
-        // 주사위의 틀
-
-
 
         // 무슨 주사위가 나왔느냐에 따라서 주사위의 View를 보여준다.
+
+
+        /* 주사위 눈 1 ~ 6 */
         public void RollDiceOne(Player player, int Width, int Height, int location, bool move, int playerx)
         {
             Console.Clear();
@@ -246,7 +236,7 @@ namespace DiceAdventure
                 ShowMap(player, Width, Height, location, playerx, true);
 
             Frame(Width, Height);
-            Console.ReadLine();
+            Console.ReadKey(true);
 
 
         }
@@ -265,7 +255,7 @@ namespace DiceAdventure
             if (move)
                 ShowMap(player, Width, Height, location, playerx, true);
             Frame(Width, Height);
-            Console.ReadLine();
+            Console.ReadKey(true);
 
         }
         public void RollDiceFour(Player player, int Width, int Height, int location, bool move, int playerx)
@@ -284,7 +274,7 @@ namespace DiceAdventure
                 ShowMap(player, Width, Height, location, playerx, true);
 
             Frame(Width, Height);
-            Console.ReadLine();
+            Console.ReadKey(true);
 
         }
         public void RollDiceFive(Player player, int Width, int Height, int location, bool move, int playerx)
@@ -304,7 +294,7 @@ namespace DiceAdventure
             if (move)
                 ShowMap(player, Width, Height, location, playerx, true);
             Frame(Width, Height);
-            Console.ReadLine();
+            Console.ReadKey(true);
 
         }
         public void RollDiceSix(Player player, int Width, int Height, int location, bool move, int playerx)
@@ -327,10 +317,9 @@ namespace DiceAdventure
                 ShowMap(player, Width, Height, location, playerx, true);
 
             Frame(Width, Height);
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
-
-        // 출력문을 시작할 위치설청
+        /* 주사위 눈 1 ~ 6 */
 
     }
 }

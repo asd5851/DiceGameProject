@@ -18,11 +18,11 @@ namespace DiceAdventure
             Console.SetCursorPosition(board_w - board_w/4, board_h/2);
             Console.WriteLine("상대방을 마주쳤습니다!");
 
-            Console.SetCursorPosition(board_w-board_w/4, board_h / 2+1);
+            Console.SetCursorPosition(board_w-board_w/4, board_h / 2+4);
             Console.WriteLine("배틀을 시작합니다!");
 
             BattleBoard();
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
         public void BattleBoard()
         {

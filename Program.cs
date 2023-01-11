@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Numerics;
-
+using System.Windows;
 namespace DiceAdventure
 {
     internal class Program
@@ -16,6 +16,7 @@ namespace DiceAdventure
         public const int m_height = 10;
         public int m_playerX = 0;
         public int m_monster = 0;
+
         static void Main(string[] args)
         {
             Random random = new Random(); // 랜덤인자
@@ -33,7 +34,8 @@ namespace DiceAdventure
 
             SlideGame slidegame = new SlideGame();
             SnakeGAME snakegame = new SnakeGAME();
-            Tetris tetris = new Tetris();
+            AvoidGame avoid = new AvoidGame();
+            ShootingGame shot = new ShootingGame();
 
             NQuest quest = new NQuest();
             GameLogic gamelogic = new GameLogic();
@@ -43,27 +45,14 @@ namespace DiceAdventure
             player.HP = 10;
             player.Location = 3;// 3 ~ 108
             player.Name = "플레이어";
-
             computer.HP = 15;
             computer.Location = 3;
             computer.Name = "악당";
-            card.CardGameMain();
-            //monsterview.MonsterFaceDragon(m_width, m_height);
-            //view.Frame(m_width,m_height);
+           
             //startview.BlingStartView();
             //startstory.ShowStory();
-            //gamelogic.Game(player,computer, view, d_roll, monsterview);
-            //snakegame.SnakeMain();
-            //slidegame.Slidegame();
-
-            //battlecomputer.GameLogic(player, computer, view);
-
-
-            //MovePlayer(player, view, d_roll, true);
-
-
-            //view.ShowMap(11,18,110);
-
+            gamelogic.Game(player,computer, view, d_roll, monsterview);
+            
         }
     }
 }

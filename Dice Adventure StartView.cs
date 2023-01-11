@@ -74,7 +74,7 @@ namespace DiceAdventure
             }
             StartPrint();
             Console.WriteLine("\t\t\t\t\t\tPress Any Button");
-            Console.ReadLine();
+            Console.ReadKey(true);
             Console.Clear();
         }
     }
@@ -84,7 +84,7 @@ namespace DiceAdventure
         int Height = 30;
        public void ShowStory()
         {
-            SnakeGAME snake= new SnakeGAME();
+            FrameView view= new FrameView();
             Console.SetCursorPosition(Width / 2, Height / 2 - 6);
             Console.WriteLine("주사위 용사는 공주님을 구출하고 악의 소굴을 탈출해야한다!");
             Console.SetCursorPosition(Width / 2, Height / 2 - 4);
@@ -103,9 +103,9 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2, Height / 2 + 10);
             Console.WriteLine("※ 대부분의 이벤트는 엔터로 진행을 하시면 됩니다. ");
             Console.SetCursorPosition(Width / 2, Height / 2 + 12);
-            Console.WriteLine("\t\t   PRESS ANY KEY ");
-            snake.SnakeBoard(50,30);
-            Console.ReadLine();
+            Console.WriteLine("\t\t   Press Any Key ");
+            view.MiniGameFrame();
+            Console.ReadKey(true);
 
 
 

@@ -41,16 +41,20 @@ namespace DiceAdventure
         public void StartSnake()
         {
             Console.Clear();
-            Console.SetCursorPosition(Width / 2, Height / 2);
+            Console.SetCursorPosition(Width / 2, Height / 2 - 4);
             Console.WriteLine("뱀 게임");
-            Console.SetCursorPosition(Width / 2, Height / 2+1);
+            Console.SetCursorPosition(Width / 2, Height / 2 - 2);
             Console.WriteLine("뱀 게임을 시작합니다.");
-            Console.SetCursorPosition(Width / 2, Height / 2+2);
+            Console.SetCursorPosition(Width / 2, Height / 2);
             Console.WriteLine("5개의 아이템을 먹으면 승리이며 벽에 부딪힐 경우 사망합니다.");
-            Console.SetCursorPosition(Width / 2, Height / 2 + 3);
+            Console.SetCursorPosition(Width / 2, Height / 2 + 2);
             Console.WriteLine("승리할 경우 체력이 +1 증가하며 사망했을경우 체력이 -1 깎입니다.");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 4);
+            Console.WriteLine("게임이 시작되면 (w, a, s, d)를 눌러서 시작합니다.");
+            Console.SetCursorPosition(Width / 2, Height / 2 + 8);
+            Console.WriteLine("\t\t       Press Any Key");
             SnakeBoard(Width, Height);
-            Console.ReadLine();
+            Console.ReadKey();
         }
         public void SnakeBoard(int board_w, int board_h)
         {
@@ -91,7 +95,6 @@ namespace DiceAdventure
         }
         public bool Logic()
         {
-
             if (snake_X[0] == item_X)
             {
                 if (snake_Y[0] == item_Y)
@@ -164,8 +167,7 @@ namespace DiceAdventure
             while (true)
             {
                 snake.SnakeBoard(50, 30);
-                snake.Input();
-                
+                snake.Input();                
                 if (snake.Logic() == false)
                 {
                     return false;
@@ -181,10 +183,3 @@ namespace DiceAdventure
         }
     }
 }
-// 
-// ●○○ ->  ●○○○
-//  6 5 4       ●○○
-//  0 1 2
-// ○○●
-//  4 5 6
-//  2 1 0

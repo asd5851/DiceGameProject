@@ -52,7 +52,7 @@ namespace DiceAdventure
                     break;
             }
             Frame(Width, Height);
-            Console.ReadLine();
+            Console.ReadKey(true);
 
         }
         public void MonsterCompareView(ref Player player, int Width, int Height, int compare_monster, int monster_hp)
@@ -152,7 +152,7 @@ namespace DiceAdventure
             }
             Frame(Width, Height);
 
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
         public void LooseLogic(ref Player player, int Width, int Height, int compare_monster, int monster_hp)
         {
@@ -163,6 +163,7 @@ namespace DiceAdventure
         }
         public void MonsterFaceRabbit(int Width, int Height)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(Width / 2, Height / 2 - 4);
             Console.WriteLine("      ●          ●");
             Console.SetCursorPosition(Width / 2, Height / 2 - 3);
@@ -183,9 +184,11 @@ namespace DiceAdventure
             Console.WriteLine("  ●        ㄴ        ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 5);
             Console.WriteLine("  ●●●●●●●●●●●");
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
         public void MonsterFaceWolf(int Width, int Height)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(Width / 2, Height / 2 - 3);
             Console.WriteLine("              /＼");
             Console.SetCursorPosition(Width / 2, Height / 2 - 2);
@@ -200,11 +203,12 @@ namespace DiceAdventure
             Console.WriteLine("     _____/      /");
             Console.SetCursorPosition(Width / 2, Height / 2 + 3);
             Console.WriteLine("     ＼_________／");
-
+            Console.ForegroundColor = ConsoleColor.Gray;
 
         }
         public void MonsterFaceGoblin(int Width, int Height)
         {
+            Console.ForegroundColor= ConsoleColor.Green;
             Console.SetCursorPosition(Width / 2, Height / 2 - 3);
             Console.WriteLine("              ●●●● ");
             Console.SetCursorPosition(Width / 2, Height / 2 - 2);
@@ -223,10 +227,12 @@ namespace DiceAdventure
             Console.WriteLine("            ●  ▽    ●");
             Console.SetCursorPosition(Width / 2, Height / 2 + 5);
             Console.WriteLine("              ● ● ●");
+            Console.ForegroundColor = ConsoleColor.Gray;
 
         }
         public void MonsterFaceTroll(int Width, int Height)
         {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.SetCursorPosition(Width / 2, Height / 2 - 3);
             Console.WriteLine("             △  △               ○○");
             Console.SetCursorPosition(Width / 2, Height / 2 - 2);
@@ -252,10 +258,11 @@ namespace DiceAdventure
             Console.WriteLine("     ●●●●●●●●●●● ");
             Console.SetCursorPosition(Width / 2, Height / 2 + 5);
             Console.WriteLine("      ●                ●");
-
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
         public void MonsterFaceGolem(int Width, int Height)
         {
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.SetCursorPosition(Width / 2, Height / 2 - 3);
             Console.WriteLine("     ■■■■■■■■■");
             Console.SetCursorPosition(Width / 2, Height / 2 - 2);
@@ -272,10 +279,11 @@ namespace DiceAdventure
             Console.WriteLine("       ■          ■ ");
             Console.SetCursorPosition(Width / 2, Height / 2 + 4);
             Console.WriteLine("     ■■■      ■■■ ");
-
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
         public void MonsterFaceDragon(int Width, int Height)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.SetCursorPosition(Width / 2, Height / 2 - 3);
             Console.WriteLine("               ■■     ■■■■■■    ■■");
             Console.SetCursorPosition(Width / 2, Height / 2 - 2);
@@ -294,7 +302,7 @@ namespace DiceAdventure
             Console.WriteLine("   ■                   ■■■■■■                   ■");
             Console.SetCursorPosition(Width / 2, Height / 2 + 5);
             Console.WriteLine("                          ■    ■                   ");
-
+            Console.ForegroundColor = ConsoleColor.Gray;
 
 
         }

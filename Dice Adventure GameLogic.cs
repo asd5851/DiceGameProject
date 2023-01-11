@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,9 +12,13 @@ namespace DiceAdventure
     {
         NQuest quest = new NQuest();
         Random random = new Random();
+
         SlideGame slide = new SlideGame();
         SnakeGAME snake = new SnakeGAME();
         CardGame card = new CardGame();
+        AvoidGame avoid = new AvoidGame();
+        ShootingGame shot = new ShootingGame();
+
         FrameView frame = new FrameView();
         BattleComputer battlecomputer = new BattleComputer();
         Player player_temp = new Player();
@@ -29,13 +35,14 @@ namespace DiceAdventure
             player_temp = player; // 플레이어의 정보를 담아두는 temp
             computer_temp = computer; // 컴퓨터의 정보를 담아두는 temp
             bool player_turn = true;
+
+            int cnt = 1;
             bool game_clear = player.HP > 0 && player.Location < m_width && computer.HP > 0 && computer.Location < m_width;
             while (game_clear)
             {
                 view.MessageDice(player, m_width, m_height); // 주사위를 굴려달라는 메시지 출력
                 view.ShowMap(player, m_width, m_height, 0, player.Location, true); // 주사위를 굴리면 맵을 보여준다.
                 MovePlayer(player, view, d_roll, true); // 주사위를 굴리고 플레이어의 위치 이동
-
                 // 플레이어의 턴
                 if (player_turn)
                 {
@@ -70,46 +77,23 @@ namespace DiceAdventure
                     {
                         ///*미니게임실행*/
                         Random random = new Random();
-                        int choice = random.Next(1, 2 + 1);
+                        int choice = random.Next(1, 5 + 1);
                         switch (choice)
                         {
                             case 1:
-                                if (slide.Slidegame())
-                                {
-                                    player.HP = player.HP + 1;
-                                    view.ShowWin(player, m_minigame_width, m_minigame_height);
-                                }
-                                else
-                                {
-                                    player.HP = player.HP - 1;
-                                    view.ShowLoose(player, m_minigame_width, m_minigame_height);
-                                }
-
+                                CheckGameWin(player, view, slide.Slidegame());
                                 break;
                             case 2:
-
-                                if (snake.SnakeMain())
-                                {
-                                    player.HP = player.HP + 1;
-                                    view.ShowWin(player, m_minigame_width, m_minigame_height);
-                                }
-                                else
-                                {
-                                    player.HP = player.HP - 1;
-                                    view.ShowLoose(player, m_minigame_width, m_minigame_height);
-                                }
+                                CheckGameWin(player, view, snake.SnakeMain());
                                 break;
                             case 3:
-                                if (card.CardGameMain())
-                                {
-                                    player.HP = player.HP + 1;
-                                    view.ShowWin(player, m_minigame_width, m_minigame_height);
-                                }
-                                else
-                                {
-                                    player.HP = player.HP - 1;
-                                    view.ShowLoose(player, m_minigame_width, m_minigame_height);
-                                }
+                                CheckGameWin(player, view, card.CardGameMain());
+                                break;
+                            case 4:
+                                CheckGameWin(player, view, avoid.AvoidMain());
+                                break;
+                            case 5:
+                                CheckGameWin(player, view, shot.ShootMain());
                                 break;
                         }
                     }
@@ -201,9 +185,22 @@ namespace DiceAdventure
                     player = player_temp;
                     player_turn = true;
                 }
+                
             }
         }
-
+        public void CheckGameWin(Player player, View view, bool win)
+        {
+            if (win)
+            {
+                player.HP = player.HP + 1;
+                view.ShowWin(player, m_minigame_width, m_minigame_height);
+            }
+            else
+            {
+                player.HP = player.HP - 1;
+                view.ShowLoose(player, m_minigame_width, m_minigame_height);
+            }
+        }
         // 몬스터의 배틀로직
         // 몬스터의 체력과 주사위의 눈을 비교하여 승리, 패배, 드로우 진행
         public void MonsterBattleLogic(Player player, View view, Dice_Roll d_roll, MonsterView monsterview)
@@ -213,7 +210,7 @@ namespace DiceAdventure
             // 플레이어의 위치가 절반도 오지 않았다면 약한 몬스터 출현
             if (player.Location < m_width / 2)
             {
-                monster_temp = random.Next(1, 3 + 1); // 1 ~ 3 까지 랜덤 인수를 받아서
+                monster_temp = random.Next(1, 4 + 1); // 1 ~ 3 까지 랜덤 인수를 받아서
                 monsterview.MonsterMessage(m_width, m_height, monster_temp); // 어떤 몬스터를 만나는지 출력
                 view.MessageDice(player, m_width, m_height); // 몬스터를 만나면 주사위를 굴리라는 메세지 출력
                 compare_monster = MovePlayer(player, view, d_roll, false); // 주사위를 굴린다.
@@ -268,40 +265,49 @@ namespace DiceAdventure
         {
             Console.Clear();
             player.Location = 3;
-            Console.SetCursorPosition(m_width / 2, m_height / 2);
-            Console.WriteLine("함정에 빠졌다!");
-            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
-            Console.WriteLine("태초로 돌아갑니다.");
             frame.Frame(m_width, m_height);
-            Console.ReadLine();
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2);
+            Console.WriteLine("{0}가(이) 함정에 빠졌다!",player.Name);
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 2);
+            Console.WriteLine("태초로 돌아갑니다.");
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 4);
+            Thread.Sleep(1000);
+            Console.WriteLine("Press Any Key");
+            Console.ReadKey(true);
         }
         public void AllGoFirst(Player player, Player computer)
         {
             Console.Clear();
             player.Location = 3;
             computer.Location = 3;
-            Console.SetCursorPosition(m_width / 2, m_height / 2);
-            Console.WriteLine("함정에 빠졌다!");
-            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
-            Console.WriteLine("{0} : 혼자 죽을 수 없지!");
-            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
-            Console.WriteLine("물귀신 작전! 둘이 함께 태초로 돌아갑니다.");
             frame.Frame(m_width, m_height);
-            Console.ReadLine();
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2);
+            Console.WriteLine("{0}가(이) 함정에 빠졌다!",player.Name);
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 2);
+            Console.WriteLine("{0} : 혼자 죽을 수 없지!");
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 2);
+            Console.WriteLine("물귀신 작전! 둘이 함께 태초로 돌아갑니다.");
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 4);
+            Thread.Sleep(1000);
+            Console.WriteLine("Press Any Key");
+            Console.ReadKey(true);
         }
         public void SwapLocation(Player player, Player computer)
         {
             Console.Clear();
-            Console.SetCursorPosition(m_width / 2, m_height / 2);
-            Console.WriteLine("{0}은 어지러움을 느낍니다.", player.Name);
-            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
+            frame.Frame(m_width, m_height);
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2);
+            Console.WriteLine("{0}는(은) 어지러움을 느낍니다.", player.Name);
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 2);
             Console.WriteLine("알 수 없는 힘에의해 둘의 위치가 바뀌어버립니다.");
+            Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 4);
+            Thread.Sleep(1000);
+            Console.WriteLine("Press Any Key");
             Player temp = new Player();
             temp.Location = player.Location;
             player.Location = computer.Location;
             computer.Location = temp.Location;
-            frame.Frame(m_width, m_height);
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
 
         // 에라토스테네스의 체를 구현하여 소수를 판별한다.
