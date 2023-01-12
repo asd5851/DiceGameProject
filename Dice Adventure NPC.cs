@@ -62,6 +62,12 @@ namespace DiceAdventure
                 case 11:
                     Q11(player, kind_NPC);
                     break;
+                case 12:
+                    Q12(player, kind_NPC);
+                    break;
+                case 13:
+                    Q13(player, kind_NPC);
+                    break;
             }
         }
         public void QuestMessage(bool kind)
@@ -271,10 +277,12 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
             Console.WriteLine("클래스는 다중상속이 불가능지만 이 기능은 다중상속을 지원한다.");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
-            Console.WriteLine("여러 부모클래스를 상속받아 다양한 동작을 수행하는 이 기능은 무엇인가?");
+            Console.WriteLine("이것은 명세서 역할을 하며 선언된 멤버가 반드시 구현되어있다는 보증을한다.");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 2);
-            Console.Write("답을 쓰시오 : ");
+            Console.WriteLine("여러 부모클래스를 상속받아 다양한 동작을 수행하는 이 기능은 무엇인가?");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 3);
+            Console.Write("답을 쓰시오 : ");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 4);
             string result = Console.ReadLine();
             if (result.Equals("인터페이스") || result.Equals("interface"))
             {
@@ -299,7 +307,7 @@ namespace DiceAdventure
             Console.Clear();
             view.Frame(Width, Height);
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 - 1);
-            Console.WriteLine("[Hard]");
+            Console.WriteLine("[Normal]");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
             Console.WriteLine("Java나 C#에서 메모리를 자동으로 해제해주는");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
@@ -322,8 +330,8 @@ namespace DiceAdventure
             }
             else
             {
-                player.HP -= 3;
-                CheckQ(player, false, 3);
+                player.HP -= 2;
+                CheckQ(player, false, 2);
             }
         }
         private void Q7(Player player, bool kind_NPC)
@@ -333,12 +341,14 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 - 1);
             Console.WriteLine("[Hard]");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
-            Console.WriteLine("메서드를 호출하는 쪽에서 선언만 하고, 초기화 하지않고 전달하면 ");
+            Console.WriteLine("메서드의 매개변수 전달 방식으로 ");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
-            Console.WriteLine("메서드쪽에서 해당 데이터를 초기화해서 넘겨주는 형식은 무엇인가?(키워드)");
+            Console.WriteLine("메서드를 호출하는 쪽에서 선언만 하고, 초기화 하지않고 전달하면 ");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 2);
-            Console.Write("답을 쓰시오 : ");
+            Console.WriteLine("메서드쪽에서 해당 데이터를 초기화해서 넘겨주는 형식은 무엇인가?(키워드)");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 3);
+            Console.Write("답을 쓰시오 : ");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 4);
             string result = Console.ReadLine();
             if (result.Equals("반환형전달방식") || result.Equals("out") || result.Equals("반환형전달"))
             {
@@ -365,12 +375,14 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 - 1);
             Console.WriteLine("[Normal]");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
-            Console.WriteLine("실제 데이터는 매개변수가 선언된 쪽에서만 저장하고, 호출된 메서드");
+            Console.WriteLine("메서드의 매개변수 전달 방식으로 ");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
-            Console.WriteLine("에서는 참조만 하는 형태로 변수이름만 전달하는 형식은?");
+            Console.WriteLine("실제 데이터는 매개변수가 선언된 쪽에서만 저장하고, 호출된 메서드");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 2);
-            Console.Write("답을 쓰시오 : ");
+            Console.WriteLine("에서는 참조만 하는 형태로 변수이름만 전달하는 형식은?");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 3);
+            Console.Write("답을 쓰시오 : ");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 4);
             string result = Console.ReadLine();
             if (result.Equals("ref") || result.Equals("참조전달") || result.Equals("참조전달방식"))
             {
@@ -429,7 +441,7 @@ namespace DiceAdventure
             Console.Clear();
             view.Frame(Width, Height);
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 - 1);
-            Console.WriteLine("[Hard]");
+            Console.WriteLine("[Normal]");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
             Console.WriteLine("함수의 호출과 관계되는 지역변수와 매개변수가 저장되는 영역이다.");
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
@@ -444,8 +456,8 @@ namespace DiceAdventure
             {
                 if (kind_NPC)
                 {
-                    player.HP += 2;
-                    CheckQ(player, true, 2);
+                    player.HP += 1;
+                    CheckQ(player, true, 1);
                 }
                 else
                 {
@@ -454,8 +466,8 @@ namespace DiceAdventure
             }
             else
             {
-                player.HP -= 3;
-                CheckQ(player, false, 3);
+                player.HP -= 2;
+                CheckQ(player, false, 2);
             }
         }
         private void Q11(Player player, bool kind_NPC)
@@ -473,6 +485,74 @@ namespace DiceAdventure
             Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 4);
             string result = Console.ReadLine();
             if (result.Equals("해시") || result.Equals("hash") || result.Equals("HASH"))
+            {
+                if (kind_NPC)
+                {
+                    player.HP += 2;
+                    CheckQ(player, true, 2);
+                }
+                else
+                {
+                    CheckQ(player, true, 0);
+                }
+            }
+            else
+            {
+                player.HP -= 3;
+                CheckQ(player, false, 3);
+            }
+        }
+        private void Q12(Player player, bool kind_NPC)
+        {
+            Console.Clear();
+            view.Frame(Width, Height);
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 - 1);
+            Console.WriteLine("[Hard]");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
+            Console.WriteLine("C++의 함수 포인터와 비슷한 개념을 가진 키워드로");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
+            Console.WriteLine("함수 자체를 데이터 하나로 보고 의미 그대로");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 2);
+            Console.WriteLine("다른 메서드를 대신 실행하는 기능은 무엇인가?");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 3);
+            Console.Write("답을 쓰시오 : ");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 4);
+            string result = Console.ReadLine();
+            if (result.Equals("델리게이트") || result.Equals("deligate") || result.Equals("DELIGATE"))
+            {
+                if (kind_NPC)
+                {
+                    player.HP += 2;
+                    CheckQ(player, true, 2);
+                }
+                else
+                {
+                    CheckQ(player, true, 0);
+                }
+            }
+            else
+            {
+                player.HP -= 3;
+                CheckQ(player, false, 3);
+            }
+        }
+        private void Q13(Player player, bool kind_NPC)
+        {
+            Console.Clear();
+            view.Frame(Width, Height);
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 - 1);
+            Console.WriteLine("[Hard]");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2);
+            Console.WriteLine("요청을 보내고 해당 동작의 처리 여부와 상관 없이 다음 요청이 동작하는 방식");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 1);
+            Console.WriteLine("작업이 완료되는 시간을 기다릴 필요가 없기 때문에");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 2);
+            Console.WriteLine("자원을 효율적으로 사용할 수 있다");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 3);
+            Console.Write("답을 쓰시오 : ");
+            Console.SetCursorPosition(Width / 2 - Width / 4, Height / 2 + 4);
+            string result = Console.ReadLine();
+            if (result.Equals("비동기") || result.Equals("Async") || result.Equals("async"))
             {
                 if (kind_NPC)
                 {
@@ -510,6 +590,7 @@ namespace DiceAdventure
 
             Console.ReadKey(true);
         }
+
 
     }
 }

@@ -25,7 +25,7 @@ namespace DiceAdventure
         Player player = new Player();
         ConsoleKeyInfo keyinfo = new ConsoleKeyInfo();
         View view = new View();
-        char key;
+        char key = 'A';
         static int[] lst = new int[24];
         static int[] lst2 = new int[24];
         int X, Y;
@@ -41,6 +41,15 @@ namespace DiceAdventure
         collison[] subY = new collison[10];
         collison[] tempX = new collison[10];
         collison[] tempY = new collison[10];
+        private void Init()
+        {
+            key = 't';
+            X = 25;
+            Y = 15;
+            time_cnt = 300;
+            lst = new int[24];
+            lst2 = new int[24];
+        }
         public void LstInit1()
         {
             for (int i = 0; i < lst.Length - 5; i++)
@@ -108,7 +117,6 @@ namespace DiceAdventure
             if (show && !sub)
             {
                 Console.Write("▣");
-
             }
             else if (show && sub)
             {
@@ -292,7 +300,8 @@ namespace DiceAdventure
         public bool AvoidMain()
         {
             Console.Clear();
-            time_cnt = 300;
+            Init();
+            
             StartAvoid();
             Subinit1();
             Subinit2();

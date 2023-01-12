@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DiceAdventure
 {
-    
-    
+
+
     public class BattleComputer
     {
+        View view = new View();
         int board_w = 50;
         int board_h = 30;
         public void StartBattle()
         {
             Console.Clear();
-            Console.SetCursorPosition(board_w - board_w/4, board_h/2);
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2);
             Console.WriteLine("상대방을 마주쳤습니다!");
-
-            Console.SetCursorPosition(board_w-board_w/4, board_h / 2+4);
+            Console.SetCursorPosition(board_w - board_w / 4, board_h / 2 + 4);
             Console.WriteLine("배틀을 시작합니다!");
-
-            BattleBoard();
+            view.MiniGameFrame();
+            //BattleBoard();
             Console.ReadKey(true);
         }
         public void BattleBoard()
@@ -47,7 +48,7 @@ namespace DiceAdventure
                 Console.Write("□");
             }
         }
-        public int MovePlayer(Player player, View view, Dice_Roll d_roll, bool move)
+        private int MovePlayer(Player player, View view, Dice_Roll d_roll, bool move)
         {
             int result;
 
@@ -79,17 +80,15 @@ namespace DiceAdventure
                     break;
             }
             return result;
-             
+
         }
         // 컴퓨터와 플레이어의 위치가 같다면 싸운다.
         // 서로의 주사위를 굴려서 그 차이만큼 상대의 체력을 감소시킨다.
         public void GameLogic(Player player, Player computer, View view)
         {
-            Dice_Roll d_roll  = new Dice_Roll();
+            Dice_Roll d_roll = new Dice_Roll();
             int player_dice_num;
             int computer_dice_num;
-
-
             StartBattle();
             while (true)
             {
@@ -106,6 +105,7 @@ namespace DiceAdventure
                 {
                     player.HP = player.HP - (computer_dice_num - player_dice_num);
                     player.Location = player.Location - (computer_dice_num - player_dice_num) * 2;
+                    LoosePrint(player, (computer_dice_num - player_dice_num));
                     view.ShowMap(player, 110, 10, 0, player.Location, false);
                     view.HPview(player, 110, 10);
                     view.HPview(computer, 110, 10);
@@ -117,7 +117,9 @@ namespace DiceAdventure
                 else if (player_dice_num > computer_dice_num)
                 {
                     computer.HP = computer.HP - (player_dice_num - computer_dice_num);
-                    computer.Location = computer.Location - (player_dice_num - computer_dice_num)*2;
+                    computer.Location = computer.Location - (player_dice_num - computer_dice_num) * 2;
+                    LoosePrint(computer, (player_dice_num - computer_dice_num));
+                    Console.Clear();
                     view.ShowMap(computer, 110, 10, 0, computer.Location, false);
                     view.HPview(player, 110, 10);
                     view.HPview(computer, 110, 10);
@@ -127,7 +129,19 @@ namespace DiceAdventure
                 {
                     /* Do Nothing */
                 }
-            }       
+            }
+        }
+        private void LoosePrint(Player player, int differ)
+        {
+            Console.Clear();
+            Console.SetCursorPosition(board_w / 2, board_h / 2);
+            Console.WriteLine("[{0}] 가(이) 패배하였습니다.", player.Name);
+            Console.SetCursorPosition(board_w / 2, board_h / 2 + 2);
+            Console.WriteLine("[{0}] 는(은) {1} 만큼 뒤로갑니다.", player.Name, differ);
+            Console.SetCursorPosition(board_w / 2, board_h / 2 + 4);
+            Console.WriteLine("\t\t Press Any Key");
+            view.MiniGameFrame();
+            Console.ReadKey(true);
         }
     }
 }

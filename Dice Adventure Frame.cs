@@ -75,7 +75,7 @@ namespace DiceAdventure
                 {
                     Console.Write("┘");
                 }
-                else if(i == main_width / 4)
+                else if (i == main_width / 4)
                 {
                     Console.Write("┬");
                 }
@@ -174,6 +174,53 @@ namespace DiceAdventure
                 Console.Write("□");
             }
         }
+        public void RollDiceFrame()
+        {
+            int frame_height = 15;
+            int frame_width = 100;
+            for (int i = 0; i < frame_height; i++)
+            {
+                for (int j = 0; j < frame_width; j++)
+                {
+                    Console.SetCursorPosition(5 + j, 5 + i);
+                    if (i == 0)
+                    {
+                        if (j == 0)
+                        {
+                            Console.Write("┌");
+                        }
+                        else if (j == frame_width - 1)
+                        {
+                            Console.Write("┐");
+                        }
+                        else
+                            Console.Write("─");
+                    }
+                    else if( j == 0 || j == frame_width - 1)
+                    {
+                        Console.Write("│");
+                    }
+                    else if (i == frame_height - 1)
+                    {
+                        if (j == 0)
+                        {
+                            Console.Write("└");
+                        }
+                        else if (j == frame_width - 1)
+                        {
+                            Console.Write("┘");
+                        }
+                        else
+                        {
+                            Console.Write("─");
+                        }
+                    }
+                }
 
+
+            }
+        }
     }
+
 }
+

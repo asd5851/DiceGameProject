@@ -25,7 +25,7 @@ namespace DiceAdventure
         static int[] snake_Y = new int[50];
         int item_X; // 아이템의 x좌표
         int item_Y; // 아이템의 y좌표
-        char key;
+        char key = 'A';
         public int snake_length = 2; // 처음 뱀의 길이
 
         // 생성자 : 초기에 생성할떄 이렇게 생성이 된다 (규율)
@@ -37,6 +37,13 @@ namespace DiceAdventure
             item_X = random.Next(6, (50 - 2));
             item_Y = random.Next(6, (30 - 2));
 
+        }
+        private void Init()
+        {
+            flag = true;
+            key = 't';
+            snake_length = 2;
+            item_cnt = 0;
         }
         public void StartSnake()
         {
@@ -163,6 +170,7 @@ namespace DiceAdventure
             item_Y = random.Next(2, (15));
             WritePoint(10, 10,true ,"●");
             StartSnake();
+            Init();
             Console.Clear();
             while (true)
             {

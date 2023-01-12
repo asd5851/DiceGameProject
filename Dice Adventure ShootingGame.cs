@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -23,7 +24,21 @@ namespace DiceAdventure
         bool win = false;
         FrameView view = new FrameView();
         ConsoleKeyInfo keyinfo = new ConsoleKeyInfo();
-        char key;
+        char key = 'A';
+        private void Init()
+        {
+            key = 't';
+            X = 10;
+            Y = 10;
+            b_X= 10;
+            b_Y = 10;
+            temp_x = 0;
+            temp_y = 0;
+            item_x = 25;
+            item_y = 9;
+            shot_cnt = 0;
+
+        }
         public void ShottingLogic()
         {
             b_Y--;
@@ -80,7 +95,7 @@ namespace DiceAdventure
         {
 
             StartShoot();
-            shot_cnt = 0;
+            Init();
             Console.Clear();
             bool go = false;
             while (true)

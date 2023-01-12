@@ -123,7 +123,7 @@ namespace DiceAdventure
                     break;
             }
             int.TryParse(cardNumber, out int card_num);
-            Console.ReadLine();
+            Console.ReadKey(true);
             return card_num;
         }
         private void Scene()

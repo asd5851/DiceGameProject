@@ -35,7 +35,7 @@ namespace DiceAdventure
             player_temp = player; // 플레이어의 정보를 담아두는 temp
             computer_temp = computer; // 컴퓨터의 정보를 담아두는 temp
             bool player_turn = true;
-
+            
             int cnt = 1;
             bool game_clear = player.HP > 0 && player.Location < m_width && computer.HP > 0 && computer.Location < m_width;
             while (game_clear)
@@ -46,6 +46,7 @@ namespace DiceAdventure
                 // 플레이어의 턴
                 if (player_turn)
                 {
+                    //player.Location = 38;
                     // 컴퓨터의 위치를 보여준다
                     view.ShowOnlyPlayer(computer_temp, m_width, m_height);
                     // 플레이어의 턴 일때, 플레이어와 컴퓨터의 위치가 같다면
@@ -138,7 +139,7 @@ namespace DiceAdventure
                             if (player_turn)
                             {
                                 quest.QuestMessage(false);
-                                quest.Quest(player, random.Next(1, 11 + 1), false);
+                                quest.Quest(player, random.Next(1, 13 + 1), false);
                             }
                             break;
                         case 5:
@@ -150,7 +151,7 @@ namespace DiceAdventure
                             if (player_turn)
                             {
                                 quest.QuestMessage(false);
-                                quest.Quest(player, random.Next(1, 11 + 1), false);
+                                quest.Quest(player, random.Next(1, 13 + 1), false);
                             }
                             break;
                         case 7:
@@ -171,6 +172,31 @@ namespace DiceAdventure
                             break;
                     }
                 }
+                if (player_turn)
+                {
+                    if (player.HP <= 0)
+                    {
+                        LooseGame();
+                        break;
+                    }
+                    else if (player.Location >= 109)
+                    {
+                        WinGame();
+                        break;
+                    }
+                }
+                else
+                {
+                    if(player.Location >= 110)
+                    {
+                        LooseGame();
+                        break;
+                    }
+                }
+                if(player.Location < 3)
+                {
+                    player.Location = 3;
+                }
                 // 플레이어가 턴을 다쓰면 temp에 플레이어의 정보를 저장하고 플레이어를 컴퓨터로 바꿔서 진행
                 if (player_turn)
                 {
@@ -185,7 +211,7 @@ namespace DiceAdventure
                     player = player_temp;
                     player_turn = true;
                 }
-                
+               
             }
         }
         public void CheckGameWin(Player player, View view, bool win)
@@ -267,7 +293,7 @@ namespace DiceAdventure
             player.Location = 3;
             frame.Frame(m_width, m_height);
             Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2);
-            Console.WriteLine("{0}가(이) 함정에 빠졌다!",player.Name);
+            Console.WriteLine("{0}가(이) 함정에 빠졌다!", player.Name);
             Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 2);
             Console.WriteLine("태초로 돌아갑니다.");
             Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 4);
@@ -282,7 +308,7 @@ namespace DiceAdventure
             computer.Location = 3;
             frame.Frame(m_width, m_height);
             Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2);
-            Console.WriteLine("{0}가(이) 함정에 빠졌다!",player.Name);
+            Console.WriteLine("{0}가(이) 함정에 빠졌다!", player.Name);
             Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 2);
             Console.WriteLine("{0} : 혼자 죽을 수 없지!");
             Console.SetCursorPosition(m_width / 2 - m_width / 4, m_height / 2 + 2);
@@ -310,8 +336,26 @@ namespace DiceAdventure
             Console.ReadKey(true);
         }
 
+        public void WinGame()
+        {
+            Console.Clear();
+            Console.SetCursorPosition(m_width / 2, m_height / 2);
+            Console.WriteLine(" 악당을 물리치고 탈출에 성공하셨습니다. ");
+            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
+            Console.WriteLine(" Happy Endig ");
+            Console.ReadKey(true);
+        }
+        public void LooseGame()
+        {
+            Console.Clear();
+            Console.SetCursorPosition(m_width / 2, m_height / 2);
+            Console.WriteLine(" 탈출에 실패 하셨습니다. ㅠㅠ  ");
+            Console.SetCursorPosition(m_width / 2, m_height / 2 + 2);
+            Console.WriteLine(" BaD Endig ");
+            Console.ReadKey(true);
+        }
         // 에라토스테네스의 체를 구현하여 소수를 판별한다.
-        public static void Eratos()
+        private static void Eratos()
         {
             for (int i = 2; i <= m_width; i++)
             {
@@ -325,7 +369,7 @@ namespace DiceAdventure
                 }
             }
         }
-        public static bool EratosCheck(int player_location)
+        private static bool EratosCheck(int player_location)
         {
             Eratos();
             for (int i = 2; i <= m_width; i++)
@@ -337,6 +381,7 @@ namespace DiceAdventure
             }
             return false;
         }
+       
     }
 
 }
